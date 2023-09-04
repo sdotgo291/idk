@@ -1,5 +1,5 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("SkriptPremium4", "DarkTheme")
+local Window = Library.CreateLib("Skript Premium", "Serpent")
 
 -- Main
 local Main = Window:NewTab("Main")
@@ -12301,22 +12301,12 @@ end)
 
 
 
-MainSection:NewButton("PD glasses", "pd glassess", function()
-    local args = {
-        [1] = "Federal Glasses"
-    }
-    
-    game:GetService("ReplicatedStorage").Events.OutfitService:FireServer(unpack(args))
-end)    
 
-
-MainSection:NewButton("PD Belt", "belt", function()
-    local args = {
-        [1] = "CopBeltOn"
-    }
-    
-    game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
-end)
+MainSection:NewButton("Shaders", "", function()
+    workspace.CurrentCamera.CameraType = 'Custom'
+    sethiddenproperty(game.Lighting, 'Technology', 'Compatibility')
+    game.Lighting:WaitForChild('Blur', 1000000):Destroy()
+    end)
 
 
 MainSection:NewButton("PD Black Cop Fitted", "Black Cop Fitted", function()
@@ -12426,7 +12416,7 @@ local Main = Window:NewTab("FPS Boost")
 local MainSection = Main:NewSection("FPS Boost")
 
 
-MainSection:NewKeybind("Hide Menu", "This Will Hide The Menu", Enum.KeyCode.LeftAlt, function()
+MainSection:NewKeybind("Hide Menu", "This Will Hide The Menu", Enum.KeyCode.M, function()
 	Library:ToggleUI()
 end)
 
