@@ -426,13 +426,13 @@ local Main = Window:NewTab("(Anti-Lock)")
 local MainSection = Main:NewSection("Antilocks")
 
 
-MainSection:NewButton("Anti Lock", "Stops people who aimlock u and brings it to the ground", function()
+MainSection:NewButton("(Anti-Lock)", "Stops people who aimlock u and brings it to the ground", function()
 loadstring(game:HttpGet('https://pastebin.com/raw/diqjVcDi', true))()
 end)
 
 
 
-MainSection:NewButton("Anti Fling", "S", function()
+MainSection:NewButton("(Anti-Fling-Really-Good)", "S", function()
 -- // Constants \\ --
 -- [ Services ] --
 local Services = setmetatable({}, {__index = function(Self, Index)
