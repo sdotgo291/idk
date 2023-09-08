@@ -371,7 +371,7 @@ MainSection:NewButton("(Buy-380)", "This Will Auto-Buy You .380 Ammo", function(
 end)
 
 
-MainSection:NewButton("Buy Cherry Spice Delux", "Will Buy You Cherry Spice Delux", function()
+MainSection:NewButton("(Buy-Cherry-Spice-Delux)", "Will Buy You Cherry Spice Delux", function()
     local args = {
         [1] = "Cherry Spice Delux"
     }
@@ -393,7 +393,7 @@ MainSection:NewKeybind("Hide Menu", "This Will Hide The Menu", Enum.KeyCode.M, f
 	Library:ToggleUI()
 end)
 
-MainSection:NewButton("Low GFX", "This Will Boost Your FPS", function()
+MainSection:NewButton("(FPS-Booster-East-Brickton)", "This Will Boost Your FPS", function()
     local decalsyeeted = true 
     local g = game
     local w = g.Workspace
@@ -1253,7 +1253,7 @@ end)
 local Main = Window:NewTab("(Bullet-Tracers)")
 local MainSection = Main:NewSection("color")
 
-MainSection:NewButton("Red", "", function()
+MainSection:NewButton("(Hot-Orange-Tracers)", "", function()
     BulletTracers = true
     bullet_tracer_color = Color3.fromRGB(243, 29, 11)
     ---------------------------------------------------------------------------------------------------------------------------
@@ -1362,7 +1362,7 @@ MainSection:NewButton("Red", "", function()
 end)
 
 
-MainSection:NewButton("Gold", "", function()
+MainSection:NewButton("(Yellow-Tracers)", "", function()
     BulletTracers = true
     bullet_tracer_color = Color3.fromRGB(115, 250, 2)
     ---------------------------------------------------------------------------------------------------------------------------
@@ -1471,7 +1471,7 @@ MainSection:NewButton("Gold", "", function()
 end)
 
 
-MainSection:NewButton("Pink", "", function()
+MainSection:NewButton("(Pink-Tracers)", "", function()
     BulletTracers = true
     bullet_tracer_color = Color3.fromRGB(235, 5, 19)
     ---------------------------------------------------------------------------------------------------------------------------
@@ -1581,7 +1581,7 @@ end)
 
 
 
-MainSection:NewButton("Blue", "", function()
+MainSection:NewButton("(Blue-Tracers)", "", function()
     BulletTracers = true
     bullet_tracer_color = Color3.fromRGB(5, 95, 235)
     ---------------------------------------------------------------------------------------------------------------------------
@@ -1689,7 +1689,7 @@ MainSection:NewButton("Blue", "", function()
     end)
 end)
 
-MainSection:NewButton("Green", "", function()
+MainSection:NewButton("(Green-Tracers)", "", function()
     BulletTracers = true
     bullet_tracer_color = Color3.fromRGB(51, 255, 51)
     ---------------------------------------------------------------------------------------------------------------------------
