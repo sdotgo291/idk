@@ -633,14 +633,14 @@ end)
 
 -- Main
 local Main = Window:NewTab("(FPS-Boost-Advanced)")
-local MainSection = Main:NewSection("FPS Boost")
+local MainSection = Main:NewSection("(FPS-Boost)")
 
 
-MainSection:NewKeybind("Hide Menu", "This Will Hide The Menu", Enum.KeyCode.M, function()
+MainSection:NewKeybind("(Menu-Toggle-Keybind)", "This Will Hide The Menu", Enum.KeyCode.M, function()
 	Library:ToggleUI()
 end)
 
-MainSection:NewButton("Low GFX", "This Will Boost Your FPS", function()
+MainSection:NewButton("(FPS-Boost-East-Brickton)", "This Will Boost Your FPS", function()
     local decalsyeeted = true 
     local g = game
     local w = g.Workspace
