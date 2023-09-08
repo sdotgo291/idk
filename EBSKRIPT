@@ -1,5 +1,5 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("®Envy-Hub,Version 1.2", "GrapeTheme")
+local Window = Library.CreateLib("®Envy-Hub,Version 1.2", "Synapse")
 
 -- Main
 local Main = Window:NewTab("(Main)")
@@ -7,7 +7,7 @@ local MainSection = Main:NewSection("Main")
 
 
 
-MainSection:NewButton("(Tp-walk)", "Tpwalk", function()
+MainSection:NewButton("(Become-The-Flash)", "Tpwalk", function()
     local player = game:GetService("Players").LocalPlayer
     local UIS = game:GetService("UserInputService")
     
@@ -39,23 +39,8 @@ MainSection:NewButton("(Police-Belt)", "Ban-Warning", function()
     game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
 end)
 
-MainSection:NewButton("SKip Char 1", "Skip Char2", function()
-    repeat wait() until game:IsLoaded() and game:GetService'Players'.LocalPlayer
-
-    if game.PlaceId ~= 1923555882 then return end
-    
-    local Menu = game:GetService'Players'.LocalPlayer:WaitForChild'PlayerGui':WaitForChild'MainMenu'
-    local Remote = Menu:WaitForChild'RemoteEvent'
-    
-    task.wait(0.35)
-    
-    if Menu:WaitForChild'Char1'.Value then
-        Remote:FireServer'LoadChar1'
-    end
-    
-    workspace.CurrentCamera.CameraType = 'Custom'
-    sethiddenproperty(game.Lighting, 'Technology', 'Compatibility')
-    game.Lighting:WaitForChild('Blur', 1000000):Destroy() 
+MainSection:NewButton("(Hitbox-Extender)", "", function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/sdotgo291/autofarmenvy/main/Autofarm?token=GHSAT0AAAAAACHDT4LYL4DQ6TZGRDNIBNGKZH3VJWQ'),true))() 
 end)
 
 MainSection:NewButton("(Respawn)", "Respawn/Small Height", function()
