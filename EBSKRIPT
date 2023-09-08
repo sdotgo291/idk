@@ -317,10 +317,10 @@ end)
 
 -- Auto-Buy
 local Main = Window:NewTab("(Get-Ammo)")
-local MainSection = Main:NewSection("Items")
+local MainSection = Main:NewSection("(Ammo)")
 
 
-MainSection:NewButton("Buy Kevlar BP Vest ", "Must have $5000 In Cash To Buy This", function()
+MainSection:NewButton("(Buy-Kevlar-BP-Vest)", "Must have $5000 In Cash To Buy This", function()
     local args = {
         [1] = "BuyKevlarBPVest"
     }
@@ -330,7 +330,7 @@ end)
 
 
 
-MainSection:NewButton("Buy Regular BP Vest", "Must have $2500 In Cash To Buy This", function()
+MainSection:NewButton("(Buy-Regular-BP-Vest)", "Must have $2500 In Cash To Buy This", function()
     local args = {
         [1] = "BuyRegularBPVest"
     }
@@ -339,7 +339,7 @@ MainSection:NewButton("Buy Regular BP Vest", "Must have $2500 In Cash To Buy Thi
 end)
 
 
-MainSection:NewButton("Buy .45ACP", "This Will Auto-Buy You .45 Ammo", function()
+MainSection:NewButton("(Buy-45ACP)", "This Will Auto-Buy You .45 Ammo", function()
     local args = {
 		[1] = "BuyAmmo_45"
 	
@@ -350,7 +350,7 @@ end)
 
 
 
-MainSection:NewButton("Buy 9mm", "This Will Auto-Buy You 9mm Ammo", function()
+MainSection:NewButton("(Buy-9mm)", "This Will Auto-Buy You 9mm Ammo", function()
     local args = {
 		[1] = "BuyAmmo_9"
 	
@@ -361,7 +361,7 @@ end)
 
 
 
-MainSection:NewButton("Buy .380", "This Will Auto-Buy You .380 Ammo", function()
+MainSection:NewButton("(Buy-380)", "This Will Auto-Buy You .380 Ammo", function()
     local args = {
 		[1] = "BuyAmmo_380"
 	
@@ -999,7 +999,7 @@ end)
 local Main = Window:NewTab("(Advantages)")
 local MainSection = Main:NewSection("gas")
 
-MainSection:NewButton("Gas", "Gas", function()
+MainSection:NewButton("(Gas-Anywhere)", "", function()
     local args = {
         [1] = "FillTank"
     }
@@ -1008,7 +1008,7 @@ MainSection:NewButton("Gas", "Gas", function()
     
 end)
 
-MainSection:NewButton("Car Wash 1", "", function()
+MainSection:NewButton("(Car-Wash-1)", "", function()
     local args = {
         [1] = "CarWash",
         [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
@@ -1018,7 +1018,7 @@ MainSection:NewButton("Car Wash 1", "", function()
 end)
 
 
-MainSection:NewButton("Car Wash 2", "", function()
+MainSection:NewButton("(Car-Wash-2)", "", function()
     local args = {
         [1] = "CarWash",
         [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
@@ -1028,7 +1028,7 @@ MainSection:NewButton("Car Wash 2", "", function()
 end)
 
 
-MainSection:NewButton("Car Wash 3", "", function()
+MainSection:NewButton("(Car-Wash-3)", "", function()
     local args = {
         [1] = "CarWash",
         [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
@@ -1038,7 +1038,7 @@ MainSection:NewButton("Car Wash 3", "", function()
 end)
 
 
-MainSection:NewButton("Car Wash 4", "", function()
+MainSection:NewButton("(Car-Wash-4)", "", function()
     local args = {
         [1] = "CarWash",
         [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
