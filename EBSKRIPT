@@ -39,6 +39,253 @@ MainSection:NewButton("(Police-Belt)", "Ban-Warning", function()
     game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
 end)
 
+MainSection:NewButton("(Auto-Farm-OP USE ALT)", "", function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/sdotgo291/autofarmenvy/main/Autofarm?token=GHSAT0AAAAAACHDT4LYL4DQ6TZGRDNIBNGKZH3VJWQ'),true))() 
+end)
+
+MainSection:NewButton("(Respawn)", "Respawn/Small Height", function()
+    --Shit ass script made by ca$h.#2499
+ 
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Character = LocalPlayer.Character
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+ 
+local function rm()
+    for i,v in pairs(Character:GetDescendants()) do
+        if v:IsA("BasePart") then
+            if v.Name ~= "Head" then
+                for i,cav in pairs(v:GetDescendants()) do
+                    if cav:IsA("Attachment") then
+                        if cav:FindFirstChild("OriginalPosition") then
+                            cav.OriginalPosition:Destroy()
+                        end
+                    end
+                end
+                v:FindFirstChild("OriginalSize"):Destroy()
+                if v:FindFirstChild("AvatarPartScaleType") then
+                    v:FindFirstChild("AvatarPartScaleType"):Destroy()
+                end
+            end
+        end
+    end
+end
+ 
+rm()
+wait(0.5)
+Humanoid:FindFirstChild("BodyTypeScale"):Destroy()
+wait(1)
+ 
+rm()
+wait(0.5)
+Humanoid:FindFirstChild("BodyWidthScale"):Destroy()
+wait(1)
+ 
+rm()
+wait(0.5)
+Humanoid:FindFirstChild("BodyDepthScale"):Destroy()
+wait(1)
+ 
+rm()
+wait(0.5)
+Humanoid:FindFirstChild("HeadScale"):Destroy()
+wait(1)
+end)
+
+
+MainSection:NewButton("(Markel-Fields-Silent-Aim)", "", function()
+getgenv().Prediction =  (  .1239592  )   -- [ PREDICTION: Lower Prediction: Lower Ping | Higher Prediction: Higher Ping  ]
+ 
+getgenv().FOV =  (  100  )   -- [ FOV RADIUS: Increases Or Decreases FOV Radius ]
+ 
+getgenv().AimKey =  (  "e"  )  -- [ TOGGLE KEY: Toggles Silent Aim On And Off ]
+ 
+getgenv().Notifier = true
+ 
+getgenv().FOV_VISIBLE = false  -- [ Self Explanatory ]
+ 
+getgenv().DontShootThesePeople = {  -- [ WHITELIST TABLE: List Of Who NOT To Shoot, edit like this. "Contain quotations with their name and then a semi-colon afterwards for each line" ; ]
+ 
+	"AimLockPsycho";
+	"JakeTheMiddleMan";
+ 
+}
+ 
+--[[
+		Do Not Edit Anything Beyond This Point. 
+]]
+ 
+local SilentAim = true
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Players = game:GetService("Players")
+local Mouse = LocalPlayer:GetMouse()
+local Camera = game:GetService("Workspace").CurrentCamera
+local connections = getconnections(game:GetService("LogService").MessageOut)
+for _, v in ipairs(connections) do
+	v:Disable()
+end
+ 
+getrawmetatable = getrawmetatable
+setreadonly = setreadonly
+getconnections = getconnections
+hookmetamethod = hookmetamethod
+getgenv = getgenv
+Drawing = Drawing
+ 
+local FOV_CIRCLE = Drawing.new("Circle")
+FOV_CIRCLE.Visible = getgenv().FOV_VISIBLE
+FOV_CIRCLE.Filled = false
+FOV_CIRCLE.Thickness = 1
+FOV_CIRCLE.Transparency = 1
+FOV_CIRCLE.Color = Color3.new(0, 1, 0)
+FOV_CIRCLE.Radius = getgenv().FOV
+FOV_CIRCLE.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+ 
+local Options = {
+	Torso = "HumanoidRootPart";
+	Head = "Head";
+}
+ 
+local function MoveFovCircle()
+	pcall(function()
+		local DoIt = true
+		spawn(function()
+			while DoIt do task.wait()
+				FOV_CIRCLE.Position = Vector2.new(Mouse.X, (Mouse.Y + 36))
+			end
+		end)
+	end)
+end coroutine.wrap(MoveFovCircle)()
+ 
+game.StarterGui:SetCore("SendNotification", {Title = "Silent Aim ON", Text = "TOGGLED", Duration = 5,}) -- initially on.
+ 
+local function ItsOn()
+	game.StarterGui:SetCore("SendNotification", {Title = "Silent Aim ON", Text = "TOGGLED", Duration = 5,})
+end
+local function ItsOff()
+	game.StarterGui:SetCore("SendNotification", {Title = "Silent Aim OFF", Text = "UN-TOGGLED", Duration = 5,})
+end
+ 
+Mouse.KeyDown:Connect(function(KeyPressed)
+	if KeyPressed == (getgenv().AimKey:lower()) then
+		if SilentAim == false then
+			FOV_CIRCLE.Color = Color3.new(0, 1, 0)
+			SilentAim = true
+			ItsOn()
+		elseif SilentAim == true then
+			FOV_CIRCLE.Color = Color3.new(1, 0, 0)
+			SilentAim = false
+			ItsOff()
+		end
+	end
+end)
+Mouse.KeyDown:Connect(function(Rejoin)
+	if Rejoin == "=" then
+		local LocalPlayer = game:GetService("Players").LocalPlayer
+		game:GetService("TeleportService"):Teleport(game.PlaceId, LocalPlayer)
+	end
+end)
+ 
+local oldIndex = nil 
+oldIndex = hookmetamethod(game, "__index", function(self, Index)
+	if self == Mouse and (Index == "Hit") then 
+		if SilentAim then
+			local Distance = 9e9
+			local Target = nil
+			local Players = game:GetService("Players")
+			local LocalPlayer = game:GetService("Players").LocalPlayer
+			local Camera = game:GetService("Workspace").CurrentCamera
+			for _, v in pairs(Players:GetPlayers()) do 
+				if not table.find(getgenv().DontShootThesePeople, v.Name) then
+					if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("Humanoid").Health > 0 then
+						local Enemy = v.Character	
+						local CastingFrom = CFrame.new(Camera.CFrame.Position, Enemy[Options.Torso].CFrame.Position) * CFrame.new(0, 0, -4)
+						local RayCast = Ray.new(CastingFrom.Position, CastingFrom.LookVector * 9000)
+						local World, ToSpace = game:GetService("Workspace"):FindPartOnRayWithIgnoreList(RayCast, {LocalPlayer.Character:FindFirstChild("Head")})
+						local RootWorld = (Enemy[Options.Torso].CFrame.Position - ToSpace).magnitude
+						if RootWorld < 4 then		
+							local RootPartPosition, Visible = Camera:WorldToScreenPoint(Enemy[Options.Torso].Position)
+							if Visible then
+								local Real_Magnitude = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(RootPartPosition.X, RootPartPosition.Y)).Magnitude
+								if Real_Magnitude < Distance and Real_Magnitude < FOV_CIRCLE.Radius then
+									Distance = Real_Magnitude
+									Target = Enemy
+								end
+							end
+						end
+					end
+				end
+			end
+ 
+			if Target ~= nil and Target[Options.Torso] and Target:FindFirstChild("Humanoid").Health > 0 then
+				if SilentAim then
+					local ShootThis = Target[Options.Torso]
+					local Predicted_Position = ShootThis.CFrame + (ShootThis.Velocity * getgenv().Prediction + Vector3.new(0,-.5,0))
+					return ((Index == "Hit" and Predicted_Position))
+				end
+			end
+		end
+	end
+	return oldIndex(self, Index)
+end)
+end)
+
+
+MainSection:NewButton("(Hitbox-Extender)", "", function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/shit%20script%20pack/CheatX'))()
+end)
+
+MainSection:NewButton("(Infinite-Yield)", "Infinite Yield", function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+
+-- Main
+local Main = Window:NewTab("(Shaders-And-Hats)")
+local MainSection = Main:NewSection("Extra+")
+
+
+MainSection:NewButton("Motion-Blur)", "Dances", function()
+ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("®Envy-Hub,Version 1.2", "Synapse")
+
+-- Main
+local Main = Window:NewTab("(Main)")
+local MainSection = Main:NewSection("Main")
+
+
+
+MainSection:NewButton("(Become-The-Flash)", "Tpwalk", function()
+    local player = game:GetService("Players").LocalPlayer
+    local UIS = game:GetService("UserInputService")
+    
+    function ShiftPressed()
+     local ShiftHeld = UIS:IsKeyDown(Enum.KeyCode.LeftShift)
+     
+     if ShiftHeld then
+      player.Character.Humanoid.WalkSpeed = 18
+     end
+    end
+    
+    function ShiftReleased()
+     local ShiftHeld = UIS:IsKeyDown(Enum.KeyCode.LeftShift)
+    
+     if ShiftHeld == false then
+      player.Character.Humanoid.WalkSpeed = 11
+     end
+    end
+    
+    UIS.InputBegan:Connect(ShiftPressed)
+    UIS.InputEnded:Connect(ShiftReleased)
+end)
+
+MainSection:NewButton("(Police-Belt)", "Ban-Warning", function()
+    local args = {
+        [1] = "CopBeltOn"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
+end)
+
 MainSection:NewButton("(Hitbox-Extender)", "", function()
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/sdotgo291/autofarmenvy/main/Autofarm?token=GHSAT0AAAAAACHDT4LYL4DQ6TZGRDNIBNGKZH3VJWQ'),true))() 
 end)
@@ -245,7 +492,36 @@ local MainSection = Main:NewSection("Extra+")
 
 
 MainSection:NewButton("Shaders-&-Hats", "Dances", function()
-    loadstring(game:HttpGet("https://gitlab.com/Tsuniox/lua-stuff/-/raw/master/R15GUI.lua"))()
+local camera = workspace.CurrentCamera
+local blurAmount = 10
+local blurAmplifier = 5
+local lastVector = camera.CFrame.LookVector
+
+local motionBlur = Instance.new("BlurEffect", camera)
+
+local runService = game:GetService("RunService")
+
+workspace.Changed:Connect(function(property)
+ if property == "CurrentCamera" then
+  print("Changed")
+  local camera = workspace.CurrentCamera
+  if motionBlur and motionBlur.Parent then
+   motionBlur.Parent = camera
+  else
+   motionBlur = Instance.new("BlurEffect", camera)
+  end
+ end
+end)
+
+runService.Heartbeat:Connect(function()
+ if not motionBlur or motionBlur.Parent == nil then
+  motionBlur = Instance.new("BlurEffect", camera)
+ end
+ 
+ local magnitude = (camera.CFrame.LookVector - lastVector).magnitude
+ motionBlur.Size = math.abs(magnitude)*blurAmount*blurAmplifier/2
+ lastVector = camera.CFrame.LookVector
+end)
 end)
 
 
@@ -279,6 +555,1529 @@ end)
 MainSection:NewButton("PD Ear Piece", "Ear Piece", function()
     local args = {
         [1] = "Officer Earpiece"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.OutfitService:FireServer(unpack(args))
+end)
+
+
+
+-- Auto-Buy
+local Main = Window:NewTab("(Get-Ammo)")
+local MainSection = Main:NewSection("Items")
+
+
+MainSection:NewButton("Buy Kevlar BP Vest ", "Must have $5000 In Cash To Buy This", function()
+    local args = {
+        [1] = "BuyKevlarBPVest"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+
+MainSection:NewButton("Buy Regular BP Vest", "Must have $2500 In Cash To Buy This", function()
+    local args = {
+        [1] = "BuyRegularBPVest"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+MainSection:NewButton("Buy .45ACP", "This Will Auto-Buy You .45 Ammo", function()
+    local args = {
+		[1] = "BuyAmmo_45"
+	
+	}
+	
+	game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+
+MainSection:NewButton("Buy 9mm", "This Will Auto-Buy You 9mm Ammo", function()
+    local args = {
+		[1] = "BuyAmmo_9"
+	
+	}
+	
+	game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+
+MainSection:NewButton("Buy .380", "This Will Auto-Buy You .380 Ammo", function()
+    local args = {
+		[1] = "BuyAmmo_380"
+	
+	}
+	
+	game:GetService("ReplicatedStorage").Events.ClientService:FireServer(unpack(args))
+end)
+
+
+MainSection:NewButton("Buy Cherry Spice Delux", "Will Buy You Cherry Spice Delux", function()
+    local args = {
+        [1] = "Cherry Spice Delux"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ShopService:FireServer(unpack(args))
+end)
+
+
+
+
+
+
+-- Main
+local Main = Window:NewTab("(FPS-Boost-Advanced)")
+local MainSection = Main:NewSection("FPS Boost")
+
+
+MainSection:NewKeybind("Hide Menu", "This Will Hide The Menu", Enum.KeyCode.M, function()
+	Library:ToggleUI()
+end)
+
+MainSection:NewButton("Low GFX", "This Will Boost Your FPS", function()
+    local decalsyeeted = true 
+    local g = game
+    local w = g.Workspace
+    local l = g.Lighting
+    local t = w.Terrain
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+    l.GlobalShadows = false
+    l.FogEnd = 9e9
+    l.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+    for i,v in pairs(g:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("Union") or v:IsA("MeshPart") then
+            v.Material = "Plastic"
+    v.Reflectance = 0
+    elseif v:IsA("Decal") and decalsyeeted then 
+    v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then 
+    v.Lifetime = NumberRange.new(0)
+        end
+    end
+end)
+
+
+
+-- Main
+local Main = Window:NewTab("(Anti-Lock)")
+local MainSection = Main:NewSection("Antilocks")
+
+
+MainSection:NewButton("Anti Lock", "Stops people who aimlock u and brings it to the ground", function()
+loadstring(game:HttpGet('https://pastebin.com/raw/diqjVcDi', true))()
+end)
+
+
+
+MainSection:NewButton("Anti Fling", "S", function()
+-- // Constants \\ --
+-- [ Services ] --
+local Services = setmetatable({}, {__index = function(Self, Index)
+    local NewService = game.GetService(game, Index)
+    if NewService then
+    Self[Index] = NewService
+    end
+    return NewService
+    end})
+    
+    -- [ LocalPlayer ] --
+    local LocalPlayer = Services.Players.LocalPlayer
+    
+    -- // Functions \\ --
+    local function PlayerAdded(Player)
+       local Detected = false
+       local Character;
+       local PrimaryPart;
+    
+       local function CharacterAdded(NewCharacter)
+           Character = NewCharacter
+           repeat
+               wait()
+               PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+           until PrimaryPart
+           Detected = false
+       end
+    
+       CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+       Player.CharacterAdded:Connect(CharacterAdded)
+       Services.RunService.Heartbeat:Connect(function()
+           if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+               if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+                   if Detected == false then
+                       game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                           Text = "Fling Exploit detected, Player: " .. tostring(Player);
+                           Color = Color3.fromRGB(255, 200, 0);
+                       })
+                   end
+                   Detected = true
+                   for i,v in ipairs(Character:GetDescendants()) do
+                       if v:IsA("BasePart") then
+                           v.CanCollide = false
+                           v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                           v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                           v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                       end
+                   end
+                   PrimaryPart.CanCollide = false
+                   PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                   PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                   PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+               end
+           end
+       end)
+    end
+    
+    -- // Event Listeners \\ --
+    for i,v in ipairs(Services.Players:GetPlayers()) do
+       if v ~= LocalPlayer then
+           PlayerAdded(v)
+       end
+    end
+    Services.Players.PlayerAdded:Connect(PlayerAdded)
+    
+    local LastPosition = nil
+    Services.RunService.Heartbeat:Connect(function()
+       pcall(function()
+           local PrimaryPart = LocalPlayer.Character.PrimaryPart
+           if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+               PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.CFrame = LastPosition
+    
+               game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                   Text = "You were flung. Neutralizing velocity.";
+                   Color = Color3.fromRGB(255, 0, 0);
+               })
+           elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+               LastPosition = PrimaryPart.CFrame
+           end
+       end)
+    end)
+end)
+
+
+-- Main
+local Main = Window:NewTab("(Way-Point-Gui)")
+local MainSection = Main:NewSection("OP")
+
+
+MainSection:NewButton("(Way-Points)", "", function()
+--waypoint script by koirapallo32#5518 :)
+
+local KoiraWaypoints = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local TpTemplate = Instance.new("TextButton")
+local NameLabel = Instance.new("TextLabel")
+local EditBtn = Instance.new("ImageButton")
+local TopLabel = Instance.new("TextLabel")
+local CloseBtn = Instance.new("TextButton")
+local HideBtn = Instance.new("TextButton")
+local AddBtn = Instance.new("ImageButton")
+local EditFrame = Instance.new("Frame")
+local SettingsLabel = Instance.new("TextLabel")
+local ShowBtn = Instance.new("TextButton")
+local CloseBtn_2 = Instance.new("TextButton")
+local HideBtn_2 = Instance.new("TextButton")
+local NameBox = Instance.new("TextBox")
+local EditBtn_2 = Instance.new("ImageButton")
+local DeleteBtn = Instance.new("TextButton")
+local ImageLabel = Instance.new("ImageLabel")
+
+KoiraWaypoints.Name = "KoiraWaypoints"
+KoiraWaypoints.Parent = game:service'Players'.LocalPlayer.PlayerGui
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = KoiraWaypoints
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+MainFrame.BackgroundColor3 = Color3.new(0.396078, 1, 0.486275)
+MainFrame.BorderColor3 = Color3.new(0.188235, 0.47451, 0.223529)
+MainFrame.Position = UDim2.new(0.100000001, 0, 0.5, 0)
+MainFrame.Size = UDim2.new(0, 200, 0, 300)
+
+ShowBtn.Name = "ShowBtn"
+ShowBtn.Parent = KoiraWaypoints
+ShowBtn.AnchorPoint = Vector2.new(0, 1)
+ShowBtn.BackgroundColor3 = Color3.new(0.396078, 1, 0.486275)
+ShowBtn.BorderColor3 = Color3.new(0.188235, 0.47451, 0.223529)
+ShowBtn.Position = UDim2.new(-0.5, 0, 0.899999976, 0)
+ShowBtn.Size = UDim2.new(0, 50, 0, 50)
+ShowBtn.Font = Enum.Font.SourceSans
+ShowBtn.Text = "Show"
+ShowBtn.TextColor3 = Color3.new(0, 0, 0)
+ShowBtn.TextSize = 14
+
+ScrollingFrame.Parent = MainFrame
+ScrollingFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+ScrollingFrame.BackgroundTransparency = 1
+ScrollingFrame.BorderSizePixel = 0
+ScrollingFrame.Position = UDim2.new(0, 0, 0.100000001, 0)
+ScrollingFrame.Size = UDim2.new(1, 0, 0.899999976, 0)
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 10, 0)
+ScrollingFrame.ScrollBarThickness = 6
+
+TpTemplate.Name = "TpTemplate"
+TpTemplate.Parent = ScrollingFrame
+TpTemplate.BackgroundColor3 = Color3.new(0.356863, 0.905882, 0.431373)
+TpTemplate.BorderSizePixel = 0
+TpTemplate.Size = UDim2.new(1, 0, 0, 25)
+TpTemplate.Visible = false
+TpTemplate.Font = Enum.Font.SourceSans
+TpTemplate.Text = ""
+TpTemplate.TextSize = 14
+TpTemplate.TextXAlignment = Enum.TextXAlignment.Left
+
+NameLabel.Name = "NameLabel"
+NameLabel.Parent = TpTemplate
+NameLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+NameLabel.BackgroundTransparency = 1
+NameLabel.BorderSizePixel = 0
+NameLabel.Position = UDim2.new(0.0500000007, 0, 0, 0)
+NameLabel.Size = UDim2.new(0, 150, 1, 0)
+NameLabel.Font = Enum.Font.SourceSans
+NameLabel.TextColor3 = Color3.new(0, 0, 0)
+NameLabel.TextSize = 14
+NameLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+EditBtn.Name = "EditBtn"
+EditBtn.Parent = TpTemplate
+EditBtn.AnchorPoint = Vector2.new(1, 0)
+EditBtn.BackgroundColor3 = Color3.new(0.294118, 0.74902, 0.356863)
+EditBtn.BorderSizePixel = 0
+EditBtn.Position = UDim2.new(0.970000029, 0, 0, 0)
+EditBtn.Size = UDim2.new(0, 25, 1, 0)
+EditBtn.Image = "rbxassetid://247421757"
+
+TopLabel.Name = "TopLabel"
+TopLabel.Parent = MainFrame
+TopLabel.BackgroundColor3 = Color3.new(0.341176, 0.866667, 0.411765)
+TopLabel.BorderSizePixel = 0
+TopLabel.Size = UDim2.new(1, 0, 0.100000001, 0)
+TopLabel.Font = Enum.Font.SourceSans
+TopLabel.Text = "      Waypoint Gui"
+TopLabel.TextColor3 = Color3.new(0, 0, 0)
+TopLabel.TextSize = 14
+TopLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+CloseBtn.Name = "CloseBtn"
+CloseBtn.Parent = TopLabel
+CloseBtn.AnchorPoint = Vector2.new(1, 0)
+CloseBtn.BackgroundColor3 = Color3.new(1, 0.411765, 0.411765)
+CloseBtn.BorderSizePixel = 0
+CloseBtn.Position = UDim2.new(1, 0, 0, 0)
+CloseBtn.Size = UDim2.new(0, 20, 0, 20)
+CloseBtn.Font = Enum.Font.SourceSans
+CloseBtn.Text = ""
+CloseBtn.TextSize = 14
+
+HideBtn.Name = "HideBtn"
+HideBtn.Parent = TopLabel
+HideBtn.AnchorPoint = Vector2.new(1, 0)
+HideBtn.BackgroundColor3 = Color3.new(0.294118, 0.74902, 0.356863)
+HideBtn.BorderSizePixel = 0
+HideBtn.Position = UDim2.new(0.897499979, 0, 0, 0)
+HideBtn.Size = UDim2.new(0, 20, 0, 20)
+HideBtn.Font = Enum.Font.SourceSans
+HideBtn.Text = ""
+HideBtn.TextSize = 14
+
+AddBtn.Name = "AddBtn"
+AddBtn.Parent = TopLabel
+AddBtn.AnchorPoint = Vector2.new(1, 0)
+AddBtn.BackgroundColor3 = Color3.new(0.258824, 0.666667, 0.313726)
+AddBtn.BorderSizePixel = 0
+AddBtn.Position = UDim2.new(0.800000012, 0, 0, 0)
+AddBtn.Size = UDim2.new(0, 20, 0, 20)
+AddBtn.Image = "rbxassetid://257579835"
+AddBtn.ImageColor3 = Color3.new(0, 0, 0)
+
+EditFrame.Name = "EditFrame"
+EditFrame.Parent = KoiraWaypoints
+EditFrame.Active = true
+EditFrame.Draggable = true
+EditFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+EditFrame.BackgroundColor3 = Color3.new(0.396078, 1, 0.486275)
+EditFrame.BorderColor3 = Color3.new(0.188235, 0.47451, 0.223529)
+EditFrame.Position = UDim2.new(0.300000012, 0, 0.5, 0)
+EditFrame.Size = UDim2.new(0, 200, 0, 100)
+EditFrame.Visible = false
+
+SettingsLabel.Name = "SettingsLabel"
+SettingsLabel.Parent = EditFrame
+SettingsLabel.BackgroundColor3 = Color3.new(0.341176, 0.866667, 0.411765)
+SettingsLabel.BorderSizePixel = 0
+SettingsLabel.Size = UDim2.new(1, 0, 0, 25)
+SettingsLabel.Font = Enum.Font.SourceSans
+SettingsLabel.Text = "      Settings"
+SettingsLabel.TextColor3 = Color3.new(0, 0, 0)
+SettingsLabel.TextSize = 14
+SettingsLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+CloseBtn_2.Name = "CloseBtn"
+CloseBtn_2.Parent = SettingsLabel
+CloseBtn_2.AnchorPoint = Vector2.new(1, 0)
+CloseBtn_2.BackgroundColor3 = Color3.new(1, 0.411765, 0.411765)
+CloseBtn_2.BorderSizePixel = 0
+CloseBtn_2.Position = UDim2.new(1, 0, 0, 0)
+CloseBtn_2.Size = UDim2.new(0, 20, 0, 20)
+CloseBtn_2.Font = Enum.Font.SourceSans
+CloseBtn_2.Text = ""
+CloseBtn_2.TextSize = 14
+
+HideBtn_2.Name = "HideBtn"
+HideBtn_2.Parent = SettingsLabel
+HideBtn_2.AnchorPoint = Vector2.new(1, 0)
+HideBtn_2.BackgroundColor3 = Color3.new(0.294118, 0.74902, 0.356863)
+HideBtn_2.BorderSizePixel = 0
+HideBtn_2.Position = UDim2.new(0.897499979, 0, 0, 0)
+HideBtn_2.Size = UDim2.new(0, 20, 0, 20)
+HideBtn_2.Font = Enum.Font.SourceSans
+HideBtn_2.Text = ""
+HideBtn_2.TextSize = 14
+
+NameBox.Name = "NameBox"
+NameBox.Parent = EditFrame
+NameBox.BackgroundColor3 = Color3.new(0.341176, 0.866667, 0.411765)
+NameBox.BorderSizePixel = 0
+NameBox.Position = UDim2.new(0.0500000007, 0, 0.330000013, 0)
+NameBox.Size = UDim2.new(0, 150, 0, 25)
+NameBox.Font = Enum.Font.SourceSans
+NameBox.Text = "Label"
+NameBox.TextColor3 = Color3.new(0, 0, 0)
+NameBox.TextSize = 14
+NameBox.TextXAlignment = Enum.TextXAlignment.Left
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Parent = KoiraWaypoints
+TextLabel.AnchorPoint = Vector2.new(0, 1)
+TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+TextLabel.BackgroundTransparency = 1
+TextLabel.Position = UDim2.new(0, 0, 1, 0)
+TextLabel.Size = UDim2.new(0, 200, 0, 25)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "waypoint gui by koirapallo32#5518 :)"
+TextLabel.TextColor3 = Color3.new(1, 1, 1)
+TextLabel.TextSize = 14
+TextLabel.TextStrokeTransparency = 0
+EditBtn_2.Name = "EditBtn"
+EditBtn_2.Parent = NameBox
+EditBtn_2.AnchorPoint = Vector2.new(1, 0)
+EditBtn_2.BackgroundColor3 = Color3.new(0.294118, 0.74902, 0.356863)
+EditBtn_2.BorderSizePixel = 0
+EditBtn_2.Position = UDim2.new(1.20000005, 0, 0, 0)
+EditBtn_2.Size = UDim2.new(0, 25, 1, 0)
+EditBtn_2.Image = "rbxassetid://247421757"
+
+DeleteBtn.Name = "DeleteBtn"
+DeleteBtn.Parent = EditFrame
+DeleteBtn.BackgroundColor3 = Color3.new(1, 0.521569, 0.521569)
+DeleteBtn.BorderSizePixel = 0
+DeleteBtn.Position = UDim2.new(0.100000001, 0, 0.660000026, 0)
+DeleteBtn.Size = UDim2.new(0.800000012, 0, 0, 25)
+DeleteBtn.Font = Enum.Font.SourceSans
+DeleteBtn.Text = "     Delete"
+DeleteBtn.TextColor3 = Color3.new(0, 0, 0)
+DeleteBtn.TextSize = 14
+DeleteBtn.TextXAlignment = Enum.TextXAlignment.Left
+
+ImageLabel.Parent = DeleteBtn
+ImageLabel.AnchorPoint = Vector2.new(1, 0)
+ImageLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+ImageLabel.BackgroundTransparency = 1
+ImageLabel.Position = UDim2.new(0.995000005, 0, 0.0500000007, 0)
+ImageLabel.Size = UDim2.new(0, 22, 0, 22)
+ImageLabel.Image = "rbxassetid://145360650"
+ImageLabel.ImageColor3 = Color3.new(0, 0, 0)
+
+function sort()
+	local rs = game:service'ReplicatedStorage'
+	local fol = Instance.new("Folder",rs)
+	fol.Name = "Hello"
+	for i,v in pairs(ScrollingFrame:GetChildren()) do
+		if v.Name ~= "TpTemplate" then
+			v.Parent = fol
+		end
+	end
+	for i,v in pairs(fol:GetChildren()) do
+		v.Parent = ScrollingFrame
+		v.Position = UDim2.new(0,0,0,-50+(25*#ScrollingFrame:GetChildren()))
+	end
+	fol:Destroy()
+end
+
+ShowBtn.MouseButton1Click:connect(function()
+	MainFrame:TweenPosition(UDim2.new(0.1,0,0.5,0),"Out", "Quad", 0.5)
+	ShowBtn:TweenPosition(UDim2.new(-0.5,0,0.9,0),"Out", "Quad", 0.5)
+end)
+
+CloseBtn.MouseButton1Click:connect(function()
+	KoiraWaypoints:Destroy()
+end)
+
+HideBtn.MouseButton1Click:connect(function()
+	MainFrame:TweenPosition(UDim2.new(-0.5,0,0.5,0),"Out", "Quad", 0.5)
+	ShowBtn:TweenPosition(UDim2.new(0,0,0.9,0),"Out", "Quad", 0.5)
+end)
+
+AddBtn.MouseButton1Click:connect(function()
+	local lol = TpTemplate:Clone()
+	lol.Parent = ScrollingFrame
+	lol.Visible = true
+	lol.Position = UDim2.new(0,0,0,-50+(25*#ScrollingFrame:GetChildren()))
+	local val = Instance.new("Vector3Value",lol)
+	val.Value = game:service'Players'.LocalPlayer.Character.HumanoidRootPart.CFrame.p
+	lol.MouseButton1Click:connect(function()
+		game:service'Players'.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(val.Value)
+	end)
+	val.Name = "Pos"
+	lol.Name = "Waypoint"
+	lol.NameLabel.Text = "Waypoint"
+	lol.EditBtn.MouseButton1Click:connect(function()
+		local dsa = EditFrame:Clone()
+		dsa.Visible =true
+		dsa.NameBox.Text = lol.NameLabel.Text
+		dsa.SettingsLabel.HideBtn:Destroy()
+		dsa.Parent = KoiraWaypoints
+		dsa.DeleteBtn.MouseButton1Click:connect(function()
+			lol:Destroy()
+			dsa:Destroy()
+			sort()
+		end)
+		dsa.NameBox.EditBtn.MouseButton1Click:connect(function()
+			if dsa.NameBox.Text ~= nil then
+				lol.NameLabel.Text = dsa.NameBox.Text
+			end
+		end)
+		dsa.SettingsLabel.CloseBtn.MouseButton1Click:connect(function()
+			dsa:Destroy()
+		end)
+	end)
+end)
+for i=30,0,-1 do
+	wait(1)
+	TextLabel.Text = "waypoint gui by koirapallo32#5518 ("..i..")"
+end
+TextLabel:Destroy()
+end)
+
+MainSection:NewButton("(Revive-Only-Injured)", "", function()
+    local args = {
+        [1] = "HospitalGui"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.VehicleService:FireServer(unpack(args))
+end)
+
+
+
+-- Main
+local Main = Window:NewTab("(Safes)")
+local MainSection = Main:NewSection("To your safes")
+
+MainSection:NewButton("BroadWay 2st", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2026.6888427734375, -192.22500610351562, -297.3460388183594)
+end)
+
+MainSection:NewButton("BroadWay 3st", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2069.614990234375, -192.22500610351562, -321.3831787109375)
+end)
+
+
+MainSection:NewButton("BroadWay 4st", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2069.698486328125, -192.22500610351562, -297.6142272949219)
+end)
+
+MainSection:NewButton("BroadWay 1st", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2028.1976318359375, -192.22500610351562, -321.6656799316406)
+end)
+
+
+MainSection:NewButton("York Condos 1st", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1594.5313720703125, -169.51007080078125, -903.1707153320312)
+end)
+
+MainSection:NewButton("York Condos 2st", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1607.3211669921875, -169.51007080078125, -898.3062133789062)
+end)
+
+
+MainSection:NewButton("White house Gunshop 1st Row", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-172.11119079589844, -155.4550323486328, 1209.3719482421875)
+end)
+
+MainSection:NewButton("Red house Gunshop 1st Row", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-196.4354248046875, -155.4550323486328, 927.8966674804688)
+end)
+
+MainSection:NewButton("Yellow House 2nd row", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-196.4354248046875, -155.4550323486328, 927.8966674804688)
+end)
+
+
+MainSection:NewButton(" 2nd Yellow House 2nd row", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-377.4442443847656, -155.4550323486328, 836.1122436523438)
+end)
+
+MainSection:NewButton(" Red house Row 2", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-262.7559814453125, -214.59152221679688, 612.372802734375)
+end)
+
+MainSection:NewButton(" Organge House Row 2", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-380.9678649902344, -155.4550323486328, 1000.6522216796875)
+end)
+
+MainSection:NewButton(" Groove Yellow House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1162.517333984375, -155.4550323486328, 641.8162841796875)
+end)
+
+MainSection:NewButton(" Groove Grey House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1531.544189453125, -214.59152221679688, 591.4595336914062)
+end)
+
+MainSection:NewButton(" Groove Blue House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1531.544189453125, -214.59152221679688, 591.4595336914062)
+end)
+
+MainSection:NewButton(" Behide Motel Pink House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(994.2440185546875, -155.4550323486328, 823.3056030273438)
+end)
+
+MainSection:NewButton(" Motel 1st House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-573.0147705078125, -236.32504272460938, 1505.9808349609375)
+end)
+
+MainSection:NewButton(" Motel 2nd House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-603.3578491210938, -236.32504272460938, 1508.0855712890625)
+end)
+
+MainSection:NewButton(" Motel 3nd House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-634.5890502929688, -236.32504272460938, 1510.0416259765625)
+end)
+
+MainSection:NewButton(" Motel 4nd House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-670.5419311523438, -236.32504272460938, 1514.5601806640625)
+end)
+
+MainSection:NewButton(" Grey house Near Motel", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1144.7655029296875, -155.4550323486328, 421.7582092285156)
+end)
+
+MainSection:NewButton(" Fishery House Green ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1266.034912109375, -214.59152221679688, 613.6636962890625)
+end)
+
+MainSection:NewButton(" Fishery House Grey ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1526.6456298828125, -155.4550323486328, 609.9496459960938)
+end)
+
+MainSection:NewButton(" Boxing House Grey ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-524.7763061523438, -214.59152221679688, -46.45515060424805)
+end)
+
+MainSection:NewButton(" Beach House Brick ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-409.7513122558594, -203.45501708984375, -99.34390258789062)
+end)
+
+MainSection:NewButton(" Bech House Next To Brick ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-429.0731201171875, -203.45501708984375, -318.03192138671875)
+end)
+
+MainSection:NewButton(" Shaf Unit 1 Left DownStairs ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2796.212158203125, -250.22503662109375, -3327.97216796875)
+end)
+
+MainSection:NewButton(" Shaf Unit 1 Right DownStairs ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2807.5966796875, -250.22503662109375, -3465.144287109375)
+end)
+
+MainSection:NewButton(" Shaf Unit 1 Left Upstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2796.318115234375, -241.52503967285156, -3328.317138671875)
+end)
+
+MainSection:NewButton(" Shaf Unit 1 Right Upstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2807.6923828125, -241.52503967285156, -3466.41943359375)
+end)
+
+MainSection:NewButton(" Shaf Unit 2 Left Downstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3171.9208984375, -250.22503662109375, -3433.785400390625)
+end)
+
+MainSection:NewButton(" Shaf Unit 2 Right Downstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3159.461181640625, -250.22503662109375, -3296.59326171875)
+end)
+
+MainSection:NewButton(" Shaf Unit 2 Left Upstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3171.038818359375, -241.52503967285156, -3435.822998046875)
+end)
+
+MainSection:NewButton(" Shaf Unit 2 Right Upstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3160.299072265625, -241.52503967285156, -3296.539794921875)
+end)
+
+MainSection:NewButton(" Shaf Unit 3 Left Downstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3445.976806640625, -250.2269744873047, -3271.48779296875)
+end)
+
+MainSection:NewButton(" Shaf Unit 3 Right Downstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3459.138427734375, -250.22503662109375, -3408.5732421875)
+end)
+
+MainSection:NewButton(" Shaf Unit 3 Left Upstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3446.552001953125, -241.52503967285156, -3270.83544921875)
+end)
+
+MainSection:NewButton(" Shaf Unit 3 Right Upstairs", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3458.0517578125, -241.52503967285156, -3409.738037109375)
+end)
+
+
+-- Main
+local Main = Window:NewTab("(Advantages)")
+local MainSection = Main:NewSection("gas")
+
+MainSection:NewButton("Gas", "Gas", function()
+    local args = {
+        [1] = "FillTank"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.VehicleService:FireServer(unpack(args))
+    
+end)
+
+MainSection:NewButton("Car Wash 1", "", function()
+    local args = {
+        [1] = "CarWash",
+        [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
+end)
+
+
+MainSection:NewButton("Car Wash 2", "", function()
+    local args = {
+        [1] = "CarWash",
+        [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
+end)
+
+
+MainSection:NewButton("Car Wash 3", "", function()
+    local args = {
+        [1] = "CarWash",
+        [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
+end)
+
+
+MainSection:NewButton("Car Wash 4", "", function()
+    local args = {
+        [1] = "CarWash",
+        [2] = workspace.GameMap.Buildings.CarWash.Model.Model.Model.Model.CarWashStation
+    }
+    
+    game:GetService("ReplicatedStorage").Events.ActionService:FireServer(unpack(args))
+end)
+
+
+
+
+
+
+
+-- Teleports
+local Main = Window:NewTab("(TP's)")
+local MainSection = Main:NewSection("Places")
+
+
+
+
+
+MainSection:NewButton("Shafter Bush", "Will TP You To A Shafter Bush", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-675.633301, 4.19675684, -249.262222, 0.967066348, -1.05062163e-08, 0.25452444, 1.29928237e-08, 1, -8.08844103e-09, -0.25452444, 1.11290497e-08, 0.967066348)
+end)
+
+
+
+
+MainSection:NewButton("Hospital TP", "Will TP You Near The Hospital", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(478.548615, 4.06701088, 373.685181, -0.948693454, 2.16928377e-08, 0.316197276, 2.32951507e-08, 1, 1.28754929e-09, -0.316197276, 8.58735305e-09, -0.948693454)
+end)
+
+
+
+MainSection:NewButton("Gun Store Inside", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-936, -165, -1967)
+end)
+
+
+
+MainSection:NewButton("Gun Store Outside", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-53, 4, 404)
+end)
+
+
+
+MainSection:NewButton("Car Wash Bush", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502, 4, 155)
+end)
+
+
+MainSection:NewButton("Factory", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-817, -6, 109)
+end)
+
+
+MainSection:NewButton("Actor Garage", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(292, 8, 103)
+end)
+
+
+
+MainSection:NewButton("PD Parking Lot", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(601, 5, 211)
+end)
+
+
+
+MainSection:NewButton("Gas Station", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-59, 4, 58)
+end)
+
+
+
+MainSection:NewButton("WePump Gas", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-694, -10, 397)
+end)
+
+
+
+MainSection:NewButton("Car Spawn", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-149, 4, -68)
+end)
+
+
+MainSection:NewButton("Get EMS", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(426, 24, 195)
+end)
+
+
+
+
+MainSection:NewButton("Job Center", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(230, 4, 309)
+end)
+
+
+
+MainSection:NewButton("LitFits", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-24, 4, 157)
+end)
+
+
+
+
+MainSection:NewButton("LaFancy", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(113, 4, 348)
+end)
+
+
+MainSection:NewButton("Fishery", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-761, 5, -79)
+end)
+
+
+
+MainSection:NewButton("Pawn Shop", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-422, 4, -58)
+end)
+
+
+
+MainSection:NewButton("Actor", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(216, 50, 35)
+end)
+
+
+MainSection:NewButton("Club DJ", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(309, 30, 364)
+end)
+
+
+
+MainSection:NewButton("Shaffer Unit 1 Houses", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-669, 4, -299)
+end)
+
+
+
+MainSection:NewButton("Shaffer Unit 2 Houses", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-660, 4, -350)
+end)
+
+
+
+MainSection:NewButton("Shaffer Unit 3 Houses", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-634, 4, -439)
+end)
+
+
+
+MainSection:NewButton("Shaffer Lake Houses", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-516, -8, -295)
+end)
+
+
+
+MainSection:NewButton("BroadWay Apts", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(91, 4, 35)
+end)
+
+
+
+
+MainSection:NewButton("GoodYear Homes Back Row", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-424, 4, 407)
+end)
+
+
+
+MainSection:NewButton("GoodYear Homes Middle Row", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-312, 4, 318)
+end)
+
+
+MainSection:NewButton("GoodYear Homes First Row", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-232, 4, 327)
+end)
+
+
+
+MainSection:NewButton("G Homes", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-309, 4, 154)
+end)
+
+
+
+MainSection:NewButton("Safe Spot 1", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-116, 14, -20)
+end)
+
+
+MainSection:NewButton("Grove Homes", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-591, -8, 347)
+end)
+
+
+
+MainSection:NewButton("Motel Homes", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-603, 4, 223)
+end)
+
+
+
+MainSection:NewButton("Fishery Homes", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-753, 4, -10)
+end)
+
+
+-- Gun Tracers
+local Main = Window:NewTab("(Bullet-Tracers)")
+local MainSection = Main:NewSection("color")
+
+MainSection:NewButton("Red", "", function()
+    BulletTracers = true
+    bullet_tracer_color = Color3.fromRGB(243, 29, 11)
+    ---------------------------------------------------------------------------------------------------------------------------
+    
+    function GetGun()
+        if game.Players.LocalPlayer.Character then
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:FindFirstChild 'Ammo' then
+                    return v
+                end
+            end
+        end
+        return nil
+    end
+    
+    local Services = {
+        Players = game:GetService("Players"),
+        UserInputService = game:GetService("UserInputService"),
+        RunService = game:GetService("RunService"),
+    }
+    
+    local Local = {
+        Player = Services.Players.LocalPlayer,
+        Mouse = Services.Players.LocalPlayer:GetMouse(),
+    }
+    local Other = {
+        Camera = workspace.CurrentCamera,
+        BeamPart = Instance.new("Part", workspace)
+    }
+    
+    Other.BeamPart.Name = "BeamPart"
+    Other.BeamPart.Transparency = 1
+    local Settings = {
+        StartColor = bullet_tracer_color,
+        EndColor = bullet_tracer_color,
+        StartWidth = 3,
+        EndWidth = 3,
+        ShowImpactPoint = false,
+        ImpactTransparency = 0.5,
+        ImpactColor = Color3.new(1, 1, 1),
+        Time = 1,
+    }
+    game:GetService "RunService".Heartbeat:Connect(function()
+        if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+            game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+        end
+    end)
+    local funcs = {}
+    Local.Mouse.TargetFilter = Other.BeamPart
+    function funcs:Beam(v1, v2)
+        v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+        local colorSequence = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, bullet_tracer_color),
+            ColorSequenceKeypoint.new(1, bullet_tracer_color),
+        })
+        local Part = Instance.new("Part", Other.BeamPart)
+        Part.Size = Vector3.new(0, 0, 0)
+        Part.Massless = true
+        Part.Transparency = 1
+        Part.CanCollide = false
+        Part.Position = v1
+        Part.Anchored = true
+        local Attachment = Instance.new("Attachment", Part)
+        local Part2 = Instance.new("Part", Other.BeamPart)
+        Part2.Size = Vector3.new(0, 0, 0)
+        Part2.Transparency = 0
+        Part2.CanCollide = false
+        Part2.Position = v2
+        Part2.Anchored = true
+        Part2.Material = Enum.Material.ForceField
+        Part2.Color = Settings.ImpactColor
+        Part2.Massless = true
+        local Attachment2 = Instance.new("Attachment", Part2)
+        local Beam = Instance.new("Beam", Part)
+        Beam.FaceCamera = true
+        Beam.Color = colorSequence
+        Beam.Attachment0 = Attachment
+        Beam.Attachment1 = Attachment2
+        Beam.LightEmission = 6
+        Beam.LightInfluence = 1
+        Beam.Width0 = Settings.StartWidth
+        Beam.Width1 = Settings.EndWidth
+        Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+        Beam.TextureSpeed = 2
+        Beam.TextureLength = 1
+        delay(Settings.Time, function()
+            Part:Destroy()
+            Part2:Destroy()
+        end)
+    end
+    
+    spawn(function()
+        while task.wait(0.5) do
+            gun = GetGun()
+            if gun then
+                LastAmmo = gun.Ammo.Value
+                gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                    if BulletTracers and gun.Ammo.Value < LastAmmo then
+                        LastAmmo = gun.Ammo.Value
+                        funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                    end
+                end)
+            end
+        end
+    end)
+end)
+
+
+MainSection:NewButton("Gold", "", function()
+    BulletTracers = true
+    bullet_tracer_color = Color3.fromRGB(115, 250, 2)
+    ---------------------------------------------------------------------------------------------------------------------------
+    
+    function GetGun()
+        if game.Players.LocalPlayer.Character then
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:FindFirstChild 'Ammo' then
+                    return v
+                end
+            end
+        end
+        return nil
+    end
+    
+    local Services = {
+        Players = game:GetService("Players"),
+        UserInputService = game:GetService("UserInputService"),
+        RunService = game:GetService("RunService"),
+    }
+    
+    local Local = {
+        Player = Services.Players.LocalPlayer,
+        Mouse = Services.Players.LocalPlayer:GetMouse(),
+    }
+    local Other = {
+        Camera = workspace.CurrentCamera,
+        BeamPart = Instance.new("Part", workspace)
+    }
+    
+    Other.BeamPart.Name = "BeamPart"
+    Other.BeamPart.Transparency = 1
+    local Settings = {
+        StartColor = bullet_tracer_color,
+        EndColor = bullet_tracer_color,
+        StartWidth = 3,
+        EndWidth = 3,
+        ShowImpactPoint = false,
+        ImpactTransparency = 0.5,
+        ImpactColor = Color3.new(1, 1, 1),
+        Time = 1,
+    }
+    game:GetService "RunService".Heartbeat:Connect(function()
+        if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+            game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+        end
+    end)
+    local funcs = {}
+    Local.Mouse.TargetFilter = Other.BeamPart
+    function funcs:Beam(v1, v2)
+        v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+        local colorSequence = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, bullet_tracer_color),
+            ColorSequenceKeypoint.new(1, bullet_tracer_color),
+        })
+        local Part = Instance.new("Part", Other.BeamPart)
+        Part.Size = Vector3.new(0, 0, 0)
+        Part.Massless = true
+        Part.Transparency = 1
+        Part.CanCollide = false
+        Part.Position = v1
+        Part.Anchored = true
+        local Attachment = Instance.new("Attachment", Part)
+        local Part2 = Instance.new("Part", Other.BeamPart)
+        Part2.Size = Vector3.new(0, 0, 0)
+        Part2.Transparency = 0
+        Part2.CanCollide = false
+        Part2.Position = v2
+        Part2.Anchored = true
+        Part2.Material = Enum.Material.ForceField
+        Part2.Color = Settings.ImpactColor
+        Part2.Massless = true
+        local Attachment2 = Instance.new("Attachment", Part2)
+        local Beam = Instance.new("Beam", Part)
+        Beam.FaceCamera = true
+        Beam.Color = colorSequence
+        Beam.Attachment0 = Attachment
+        Beam.Attachment1 = Attachment2
+        Beam.LightEmission = 6
+        Beam.LightInfluence = 1
+        Beam.Width0 = Settings.StartWidth
+        Beam.Width1 = Settings.EndWidth
+        Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+        Beam.TextureSpeed = 2
+        Beam.TextureLength = 1
+        delay(Settings.Time, function()
+            Part:Destroy()
+            Part2:Destroy()
+        end)
+    end
+    
+    spawn(function()
+        while task.wait(0.5) do
+            gun = GetGun()
+            if gun then
+                LastAmmo = gun.Ammo.Value
+                gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                    if BulletTracers and gun.Ammo.Value < LastAmmo then
+                        LastAmmo = gun.Ammo.Value
+                        funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                    end
+                end)
+            end
+        end
+    end)
+end)
+
+
+MainSection:NewButton("Pink", "", function()
+    BulletTracers = true
+    bullet_tracer_color = Color3.fromRGB(235, 5, 19)
+    ---------------------------------------------------------------------------------------------------------------------------
+    
+    function GetGun()
+        if game.Players.LocalPlayer.Character then
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:FindFirstChild 'Ammo' then
+                    return v
+                end
+            end
+        end
+        return nil
+    end
+    
+    local Services = {
+        Players = game:GetService("Players"),
+        UserInputService = game:GetService("UserInputService"),
+        RunService = game:GetService("RunService"),
+    }
+    
+    local Local = {
+        Player = Services.Players.LocalPlayer,
+        Mouse = Services.Players.LocalPlayer:GetMouse(),
+    }
+    local Other = {
+        Camera = workspace.CurrentCamera,
+        BeamPart = Instance.new("Part", workspace)
+    }
+    
+    Other.BeamPart.Name = "BeamPart"
+    Other.BeamPart.Transparency = 1
+    local Settings = {
+        StartColor = bullet_tracer_color,
+        EndColor = bullet_tracer_color,
+        StartWidth = 3,
+        EndWidth = 3,
+        ShowImpactPoint = false,
+        ImpactTransparency = 0.5,
+        ImpactColor = Color3.new(1, 1, 1),
+        Time = 1,
+    }
+    game:GetService "RunService".Heartbeat:Connect(function()
+        if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+            game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+        end
+    end)
+    local funcs = {}
+    Local.Mouse.TargetFilter = Other.BeamPart
+    function funcs:Beam(v1, v2)
+        v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+        local colorSequence = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, bullet_tracer_color),
+            ColorSequenceKeypoint.new(1, bullet_tracer_color),
+        })
+        local Part = Instance.new("Part", Other.BeamPart)
+        Part.Size = Vector3.new(0, 0, 0)
+        Part.Massless = true
+        Part.Transparency = 1
+        Part.CanCollide = false
+        Part.Position = v1
+        Part.Anchored = true
+        local Attachment = Instance.new("Attachment", Part)
+        local Part2 = Instance.new("Part", Other.BeamPart)
+        Part2.Size = Vector3.new(0, 0, 0)
+        Part2.Transparency = 0
+        Part2.CanCollide = false
+        Part2.Position = v2
+        Part2.Anchored = true
+        Part2.Material = Enum.Material.ForceField
+        Part2.Color = Settings.ImpactColor
+        Part2.Massless = true
+        local Attachment2 = Instance.new("Attachment", Part2)
+        local Beam = Instance.new("Beam", Part)
+        Beam.FaceCamera = true
+        Beam.Color = colorSequence
+        Beam.Attachment0 = Attachment
+        Beam.Attachment1 = Attachment2
+        Beam.LightEmission = 6
+        Beam.LightInfluence = 1
+        Beam.Width0 = Settings.StartWidth
+        Beam.Width1 = Settings.EndWidth
+        Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+        Beam.TextureSpeed = 2
+        Beam.TextureLength = 1
+        delay(Settings.Time, function()
+            Part:Destroy()
+            Part2:Destroy()
+        end)
+    end
+    
+    spawn(function()
+        while task.wait(0.5) do
+            gun = GetGun()
+            if gun then
+                LastAmmo = gun.Ammo.Value
+                gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                    if BulletTracers and gun.Ammo.Value < LastAmmo then
+                        LastAmmo = gun.Ammo.Value
+                        funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                    end
+                end)
+            end
+        end
+    end)
+end)
+
+
+
+MainSection:NewButton("Blue", "", function()
+    BulletTracers = true
+    bullet_tracer_color = Color3.fromRGB(5, 95, 235)
+    ---------------------------------------------------------------------------------------------------------------------------
+    
+    function GetGun()
+        if game.Players.LocalPlayer.Character then
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:FindFirstChild 'Ammo' then
+                    return v
+                end
+            end
+        end
+        return nil
+    end
+    
+    local Services = {
+        Players = game:GetService("Players"),
+        UserInputService = game:GetService("UserInputService"),
+        RunService = game:GetService("RunService"),
+    }
+    
+    local Local = {
+        Player = Services.Players.LocalPlayer,
+        Mouse = Services.Players.LocalPlayer:GetMouse(),
+    }
+    local Other = {
+        Camera = workspace.CurrentCamera,
+        BeamPart = Instance.new("Part", workspace)
+    }
+    
+    Other.BeamPart.Name = "BeamPart"
+    Other.BeamPart.Transparency = 1
+    local Settings = {
+        StartColor = bullet_tracer_color,
+        EndColor = bullet_tracer_color,
+        StartWidth = 3,
+        EndWidth = 3,
+        ShowImpactPoint = false,
+        ImpactTransparency = 0.5,
+        ImpactColor = Color3.new(1, 1, 1),
+        Time = 1,
+    }
+    game:GetService "RunService".Heartbeat:Connect(function()
+        if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+            game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+        end
+    end)
+    local funcs = {}
+    Local.Mouse.TargetFilter = Other.BeamPart
+    function funcs:Beam(v1, v2)
+        v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+        local colorSequence = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, bullet_tracer_color),
+            ColorSequenceKeypoint.new(1, bullet_tracer_color),
+        })
+        local Part = Instance.new("Part", Other.BeamPart)
+        Part.Size = Vector3.new(0, 0, 0)
+        Part.Massless = true
+        Part.Transparency = 1
+        Part.CanCollide = false
+        Part.Position = v1
+        Part.Anchored = true
+        local Attachment = Instance.new("Attachment", Part)
+        local Part2 = Instance.new("Part", Other.BeamPart)
+        Part2.Size = Vector3.new(0, 0, 0)
+        Part2.Transparency = 0
+        Part2.CanCollide = false
+        Part2.Position = v2
+        Part2.Anchored = true
+        Part2.Material = Enum.Material.ForceField
+        Part2.Color = Settings.ImpactColor
+        Part2.Massless = true
+        local Attachment2 = Instance.new("Attachment", Part2)
+        local Beam = Instance.new("Beam", Part)
+        Beam.FaceCamera = true
+        Beam.Color = colorSequence
+        Beam.Attachment0 = Attachment
+        Beam.Attachment1 = Attachment2
+        Beam.LightEmission = 6
+        Beam.LightInfluence = 1
+        Beam.Width0 = Settings.StartWidth
+        Beam.Width1 = Settings.EndWidth
+        Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+        Beam.TextureSpeed = 2
+        Beam.TextureLength = 1
+        delay(Settings.Time, function()
+            Part:Destroy()
+            Part2:Destroy()
+        end)
+    end
+    
+    spawn(function()
+        while task.wait(0.5) do
+            gun = GetGun()
+            if gun then
+                LastAmmo = gun.Ammo.Value
+                gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                    if BulletTracers and gun.Ammo.Value < LastAmmo then
+                        LastAmmo = gun.Ammo.Value
+                        funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                    end
+                end)
+            end
+        end
+    end)
+end)
+
+MainSection:NewButton("Green", "", function()
+    BulletTracers = true
+    bullet_tracer_color = Color3.fromRGB(51, 255, 51)
+    ---------------------------------------------------------------------------------------------------------------------------
+    
+    function GetGun()
+        if game.Players.LocalPlayer.Character then
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:FindFirstChild 'Ammo' then
+                    return v
+                end
+            end
+        end
+        return nil
+    end
+    
+    local Services = {
+        Players = game:GetService("Players"),
+        UserInputService = game:GetService("UserInputService"),
+        RunService = game:GetService("RunService"),
+    }
+    
+    local Local = {
+        Player = Services.Players.LocalPlayer,
+        Mouse = Services.Players.LocalPlayer:GetMouse(),
+    }
+    local Other = {
+        Camera = workspace.CurrentCamera,
+        BeamPart = Instance.new("Part", workspace)
+    }
+    
+    Other.BeamPart.Name = "BeamPart"
+    Other.BeamPart.Transparency = 1
+    local Settings = {
+        StartColor = bullet_tracer_color,
+        EndColor = bullet_tracer_color,
+        StartWidth = 3,
+        EndWidth = 3,
+        ShowImpactPoint = false,
+        ImpactTransparency = 0.5,
+        ImpactColor = Color3.new(1, 1, 1),
+        Time = 1,
+    }
+    game:GetService "RunService".Heartbeat:Connect(function()
+        if game:GetService("Workspace").Ignored:FindFirstChild 'BULLET_RAYS' and BulletTracers then
+            game:GetService("Workspace").Ignored.BULLET_RAYS:Destroy()
+        end
+    end)
+    local funcs = {}
+    Local.Mouse.TargetFilter = Other.BeamPart
+    function funcs:Beam(v1, v2)
+        v2 = Vector3.new(v2.X - 0.1, v2.Y + 0.2, v2.Z)
+        local colorSequence = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, bullet_tracer_color),
+            ColorSequenceKeypoint.new(1, bullet_tracer_color),
+        })
+        local Part = Instance.new("Part", Other.BeamPart)
+        Part.Size = Vector3.new(0, 0, 0)
+        Part.Massless = true
+        Part.Transparency = 1
+        Part.CanCollide = false
+        Part.Position = v1
+        Part.Anchored = true
+        local Attachment = Instance.new("Attachment", Part)
+        local Part2 = Instance.new("Part", Other.BeamPart)
+        Part2.Size = Vector3.new(0, 0, 0)
+        Part2.Transparency = 0
+        Part2.CanCollide = false
+        Part2.Position = v2
+        Part2.Anchored = true
+        Part2.Material = Enum.Material.ForceField
+        Part2.Color = Settings.ImpactColor
+        Part2.Massless = true
+        local Attachment2 = Instance.new("Attachment", Part2)
+        local Beam = Instance.new("Beam", Part)
+        Beam.FaceCamera = true
+        Beam.Color = colorSequence
+        Beam.Attachment0 = Attachment
+        Beam.Attachment1 = Attachment2
+        Beam.LightEmission = 6
+        Beam.LightInfluence = 1
+        Beam.Width0 = Settings.StartWidth
+        Beam.Width1 = Settings.EndWidth
+        Beam.Texture = "http://www.roblox.com/asset/?id=9150663556"
+        Beam.TextureSpeed = 2
+        Beam.TextureLength = 1
+        delay(Settings.Time, function()
+            Part:Destroy()
+            Part2:Destroy()
+        end)
+    end
+    
+    spawn(function()
+        while task.wait(0.5) do
+            gun = GetGun()
+            if gun then
+                LastAmmo = gun.Ammo.Value
+                gun.Ammo:GetPropertyChangedSignal("Value"):Connect(function()
+                    if BulletTracers and gun.Ammo.Value < LastAmmo then
+                        LastAmmo = gun.Ammo.Value
+                        funcs:Beam(gun.Handle.Position, Local.Mouse.hit.p)
+                    end
+                end)
+            end
+        end
+    end)
+end)
+
+
+end)
+
+
+
+
+MainSection:NewButton("Shaders", "", function()
+    workspace.CurrentCamera.CameraType = 'Custom'
+    sethiddenproperty(game.Lighting, 'Technology', 'Compatibility')
+    game.Lighting:WaitForChild('Blur', 1000000):Destroy()
+    end)
+
+
+MainSection:NewButton("RoPods", "Black Cop Fitted", function()
+    local args = {
+        [1] = "RoPods"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.OutfitService:FireServer(unpack(args))
+end)
+
+
+MainSection:NewButton("Black Winter Hat", "Black Cop Fitted", function()
+    local args = {
+        [1] = "Black Winter Hat"
+    }
+    
+    game:GetService("ReplicatedStorage").Events.OutfitService:FireServer(unpack(args))
+end)
+
+
+MainSection:NewButton("Federal Glasses", "", function()
+    local args = {
+        [1] = "Federal Glasses"
     }
     
     game:GetService("ReplicatedStorage").Events.OutfitService:FireServer(unpack(args))
