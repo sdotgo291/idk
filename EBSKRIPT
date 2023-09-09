@@ -141,7 +141,7 @@ FOV_CIRCLE.Radius = getgenv().FOV
 FOV_CIRCLE.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
  
 local Options = {
-	Torso = "HumanoidRootPart";
+	Torso = "Head";
 	Head = "Head";
 }
  
