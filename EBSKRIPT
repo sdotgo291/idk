@@ -1,5 +1,5 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("®Envy-Hub,Version 1.2", "Synapse")
+local Window = Library.CreateLib("®Envy-Hub,Version 1.2", "Midnight")
 
 -- Main
 local Main = Window:NewTab("(Main)")
@@ -93,7 +93,7 @@ end)
 
 
 MainSection:NewButton("(Markel-Fields-Silent-Aim)", "", function()
-getgenv().Prediction =  (  2.7  )   -- [ PREDICTION: Lower Prediction: Lower Ping | Higher Prediction: Higher Ping  ]
+getgenv().Prediction =  (  0.2  )   -- [ PREDICTION: Lower Prediction: Lower Ping | Higher Prediction: Higher Ping  ]
  
 getgenv().FOV =  (  100  )   -- [ FOV RADIUS: Increases Or Decreases FOV Radius ]
  
