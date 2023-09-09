@@ -93,7 +93,7 @@ end)
 
 
 MainSection:NewButton("(Markel-Fields-Silent-Aim)", "", function()
-getgenv().Prediction =  (  3.7  )   -- [ PREDICTION: Lower Prediction: Lower Ping | Higher Prediction: Higher Ping  ]
+getgenv().Prediction =  (  2.7  )   -- [ PREDICTION: Lower Prediction: Lower Ping | Higher Prediction: Higher Ping  ]
  
 getgenv().FOV =  (  100  )   -- [ FOV RADIUS: Increases Or Decreases FOV Radius ]
  
